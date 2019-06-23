@@ -12,46 +12,282 @@
 </head>
 <body>
     <div class="container-fluid">
+        <!-- 主区域 -->
         <div class="row">
+            <!-- 左侧订单信息区域 -->
             <div class="col-4">
                 订单列表 订单列表 订单列表 订单列表 订单列表 订单列表 订单列表 订单列表 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Id obcaecati fugit ipsa suscipit aperiam dolorem ducimus, voluptatibus velit autem atque iste dolores fugiat quam incidunt soluta laudantium nulla aut pariatur!
             </div>
+
+            <!-- 右侧商品信息区域 -->
             <div class="col-8">
                 <div class="row">
+                    <!-- 商品类目 -->
                     <div class="col-2">
-                        商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 商品种类 
-                    </div>
-                    <div class="col-10">
-                        <div class="row">
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
-                            <div class="col-3">商品甲</div>
+                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</a>
+                            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+                            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+                            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</a>
                         </div>
+                    </div>
+                    <!-- 商品卡片信息 -->
+                    <div class="col-10">
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class="row">
+                                            <!-- 单个菜品方块区域 -->
+                                            <div class="col-md-3 col-xs-4">
+                                                <p class="text-left">菜名测试测试测试</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div class="row">
+                                            <!-- 单个菜品方块区域 -->
+                                            <div class="col-md-3 col-xs-4">
+                                                <p class="text-left">另一个菜单</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                    <div class="row">
+                                            <!-- 单个菜品方块区域 -->
+                                            <div class="col-md-3 col-xs-4">
+                                                <p class="text-left">哈哈哈哈哈哈哈</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                    <div class="row">
+                                            <!-- 单个菜品方块区域 -->
+                                            <div class="col-md-3 col-xs-4">
+                                                <p class="text-left">和艰苦大师傅就开始</p>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 col-xs-4">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">这里是菜名</h5>
+                                                        <span class="text-left">20</span>
+                                                        <span class="text-right float-right">$15</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                        </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row fixed-bottom">
-            <div class="col-2">
-                $ 180
-            </div>
+
+
+        <!-- 底部导航栏 -->
+        <div class="row fixed-bottom" style="height:50px">
+            <div class="col-2">$ 180</div>
             <div class="col-6"></div>
             <div class="col-4">
-                <div class="row no-gutter">
+                <div class="row">
                     <div class="col">
                         <button class="btn btn-light btn-block">会员</button>
                     </div>
@@ -61,6 +297,20 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+
+    <script>
+        $(function () {
+            $('#my-test-tab a[href="#profile"]').tab('show')
+        })
+        $('#my-test-tab a').click(function (e) {
+            e.preventDefault()
+            $(this).tab('show')
+          })
+    </script>
+    <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>
+    <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
 </body>
 </html>
