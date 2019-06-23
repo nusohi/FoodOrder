@@ -1,6 +1,7 @@
-a{
-    color:inherit;
+a {
+    color: inherit;
 }
+
 a:hover {
     text-decoration: none;
 }
@@ -34,4 +35,11 @@ a:hover {
 
 .FoodCard:hover::before {
     transform: translate3d(-50%, -50%, 0) scale3d(15, 15, 15);
+}
+
+
+/* 底部导航栏 */
+.NavBar {
+    height: 80px;
+    background-color: #ffffff;
 }
