@@ -22,7 +22,7 @@
                 <div class="card">
                     <ul class="list-group" id="OrderList">
                         <!-- 订单明细 一条商品记录 -->
-                        <li class="list-group-item">
+                        <!-- <li class="list-group-item" foodID=1>
                             <div class="row">
                                 <div class="col-5"><span class="align-middle">菜名</span></div>
                                 <div hidden class="foodPrice">15.0</div>
@@ -40,7 +40,7 @@
                                         style="line-height:30px">￥15.00</span></div>
                                 <div class="col-1 p-0"><button class="DeleteItemBtn btn btn-sm p-1">删</button></div>
                             </div>
-                        </li>
+                        </li> -->
                         
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
                                     <div class="col-md-3 col-xs-4 mb-3">
                                         <a class="FoodItem" href="#">
                                             <div class="card FoodCard">
-                                                <div class="card-body">
+                                                <div class="card-body" foodID={{food.ID}}>
                                                     <h5 class="card-title">{{food.title}}</h5>
                                                     <span class="FoodAmount text-left">{{food.amount}}</span>
                                                     <span class="FoodPrice text-right float-right">￥{{food.price}}</span>
@@ -99,54 +99,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
+
                             <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                                 aria-labelledby="v-pills-messages-tab">
                                 <div class="row">
@@ -160,52 +116,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
@@ -221,51 +132,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-xs-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">这里是菜名</h5>
-                                                <span class="text-left">20</span>
-                                                <span class="text-right float-right">$15</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
 
                                 </div>
                             </div>
@@ -276,6 +143,7 @@
             </div>
         </div>
 
+        <!-- 底部填空区域 -->
         <div style="height:80px"></div>
         <!-- 底部导航栏 -->
         <div class="NavBar row fixed-bottom border-top" style="height:80px">
@@ -307,6 +175,7 @@
     </script> -->
     <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>
     <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/Order.js' %}"></script>
     <script src="{% static 'js/OrderHome.js' %}"></script>
 
 </body>
