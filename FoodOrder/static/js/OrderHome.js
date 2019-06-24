@@ -23,7 +23,7 @@ $(document).on("click", ".FoodItem", function() {
         .off("click")
         .click(function() {
             var food = $(this).find(".card-body");
-            var id = food.attr("foodID");
+            var id = parseInt(food.attr("foodID"));
             var title = food.find(".card-title").html();
             var price = food
                 .find(".FoodPrice")
@@ -55,15 +55,14 @@ $(document).on("click", ".FoodItem", function() {
         });
 
     // 绑定删除商品按钮
-    $(".DeleteItemBtn")
-        .off("click")
-        .click(function() {
-            var item = $(this).parents(".list-group-item");
-            var foodID = item.attr("foodID");
-            window.order.subFood(foodID);
-            item.remove();
-            UpdateOrderPrice();
-        });
+    $(".DeleteItemBtn").click(function() {
+        var item = $(this).parents(".list-group-item");
+        var foodID = item.attr("foodID");
+        window.order.subFood(foodID);
+        item.remove();
+        UpdateOrderPrice();
+    });
+
     // 商品数量变动（input）
     $("input.FoodAmount").on("change", function() {
         console.log("change!");
@@ -107,4 +106,18 @@ $(document).on("click", ".FoodItem", function() {
             );
         })
         .css("ime-mode", "disabled"); // CSS设置输入法不可用
+
+    // 订单提交
+    $("#OrderSubmit")
+        .off("click")
+        .click(function() {
+            var submit_data = {
+                'order': JSON.stringify(window.order.foodList)
+            };
+
+            console.log(submit_data);
+            $.post("\\order\\", submit_data, function(data) {
+                console.log(data);
+            });
+        });
 });

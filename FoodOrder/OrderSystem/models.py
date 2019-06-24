@@ -20,3 +20,17 @@ class Food(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Order(models.Model):
+    ID = models.AutoField(primary_key=True)
+    create_time = models.DateTimeField(auto_now_add=True)
+    pay_time = models.DateTimeField(null=True)
+    is_pay = models.BooleanField(default=False)
+
+
+class OrderItem(models.Model):
+    orderID = models.ForeignKey('Order', on_delete=models.CASCADE)
+    foodID = models.ForeignKey('Food', on_delete=models.PROTECT)
+    amount = models.IntegerField(default=1)
+    sum_price = models.FloatField(default=0)
