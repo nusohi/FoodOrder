@@ -10,6 +10,13 @@ String.prototype["format"] = function() {
     );
 };
 
+$(document).ready(function() {
+    // 商品种类 Tab 默认第一个
+    $("#foodTypeTabContent").ready(function() {
+        $("#foodTypeTab .nav-link:first").click();
+    });
+});
+
 $(document).on("click", ".FoodItem", function() {
     // 添加菜品到订单
     $(".FoodItem")
@@ -30,6 +37,7 @@ $(document).on("click", ".FoodItem", function() {
     $(".AddFood")
         .off("click")
         .click(function() {
+            console.log(this);
             var item = $(this).parents(".list-group-item");
             var foodID = item.attr("foodID");
             window.order.addFoodAmount(foodID);
@@ -57,11 +65,11 @@ $(document).on("click", ".FoodItem", function() {
             UpdateOrderPrice();
         });
     // 商品数量变动（input）
-    $("input.FoodAmount").on("change",function(){
+    $("input.FoodAmount").on("change", function() {
         console.log("change!");
-        $(this).attr("value",$(this).val());
+        $(this).attr("value", $(this).val());
         UpdateOrderPrice();
-    })
+    });
 
     // 订单价格刷新
     UpdateOrderPrice = function() {
@@ -76,7 +84,7 @@ $(document).on("click", ".FoodItem", function() {
             $(this)
                 .find("span.totalPrice")
                 .html((amount * price).toFixed(2));
-            orderPrice += (amount * price);
+            orderPrice += amount * price;
         });
         $("#orderPrice").html("￥ " + orderPrice.toFixed(2));
     };

@@ -15,7 +15,7 @@ class Food(models.Model):
     title = models.CharField(max_length=20)
     amount = models.IntegerField(default=0)
     price = models.FloatField(default=0)
-    foodTypeID = models.ForeignKey(
+    foodType = models.ForeignKey(
         'Foodtype', to_field="ID", on_delete=models.PROTECT)
 
     def __str__(self):
