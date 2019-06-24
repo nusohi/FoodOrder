@@ -18,8 +18,12 @@ $(document).on("click", ".FoodItem", function() {
             var food = $(this).find(".card-body");
             var id = food.attr("foodID");
             var title = food.find(".card-title").html();
-            var price = food.find(".FoodPrice").html();
+            var price = food
+                .find(".FoodPrice")
+                .html()
+                .replace("￥", "");
             window.order.addFood(new Food(id), title, price);
+            UpdateOrderPrice();
         });
 
     // 商品添加数量
@@ -29,6 +33,7 @@ $(document).on("click", ".FoodItem", function() {
             var item = $(this).parents(".list-group-item");
             var foodID = item.attr("foodID");
             window.order.addFoodAmount(foodID);
+            UpdateOrderPrice();
         });
 
     // 商品减少数量
@@ -38,6 +43,7 @@ $(document).on("click", ".FoodItem", function() {
             var item = $(this).parents(".list-group-item");
             var foodID = item.attr("foodID");
             window.order.subFoodAmount(foodID);
+            UpdateOrderPrice();
         });
 
     // 绑定删除商品按钮
@@ -48,7 +54,32 @@ $(document).on("click", ".FoodItem", function() {
             var foodID = item.attr("foodID");
             window.order.subFood(foodID);
             item.remove();
+            UpdateOrderPrice();
         });
+    // 商品数量变动（input）
+    $("input.FoodAmount").on("change",function(){
+        console.log("change!");
+        $(this).attr("value",$(this).val());
+        UpdateOrderPrice();
+    })
+
+    // 订单价格刷新
+    UpdateOrderPrice = function() {
+        var orderPrice = 0;
+        $(".OrderItem").each(function() {
+            var amount = parseInt(
+                $(this)
+                    .find("input.FoodAmount")
+                    .val()
+            );
+            var price = $(this).attr("price");
+            $(this)
+                .find("span.totalPrice")
+                .html((amount * price).toFixed(2));
+            orderPrice += (amount * price);
+        });
+        $("#orderPrice").html("￥ " + orderPrice.toFixed(2));
+    };
 
     // 限制数量输入 暂仅限制输入为数字
     $(".FoodAmount")

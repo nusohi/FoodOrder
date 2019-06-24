@@ -23,7 +23,7 @@ class Order {
         food.amount = 1;
         this.foodList.push(food);
 
-        var html = '<li class="list-group-item" foodID={0}>\
+        var html = '<li class="OrderItem list-group-item" foodID={0} price={3}>\
                 <div class="row">\
                     <div class="col-5"><span class=align-middle">{1}</span></div>\
                     <div hidden class="foodPrice">{2}</div>\
@@ -32,7 +32,7 @@ class Order {
                         <input type="text" class="FoodAmount form-control text-center" value="1"style="max-width: 50px;">\
                         <div class="input-group-append"><button class="btn AddFood input-group-text" type="button">+</button></div>\
                     </div>\
-                    <div class="col-2 p-0"><span class="aligin-middle" style="line-height:30px">{3}</span></div>\
+                    <div class="col-2 p-0"><span class="totalPrice aligin-middle" style="line-height:30px">{3}</span></div>\
                     <div class="col-1 p-0"><button class="DeleteItemBtn btn btn-sm p-1">删</button></div>\
                 </div>\
             </li>'.format(
@@ -59,6 +59,7 @@ class Order {
         } else {
             input.val(parseInt(input.val()) + 1);
         }
+        input.attr("value", input.val());
         this.foodList[this.indexOfFood(foodID)].amount = parseInt(input.val());
     };
     subFoodAmount = function(foodID) {
@@ -73,6 +74,7 @@ class Order {
         } else if (amount >= 99) {
             input.val(99);
         }
+        input.attr("value", input.val());
         this.foodList[this.indexOfFood(foodID)].amount = parseInt(input.val());
     };
 
