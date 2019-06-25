@@ -1,0 +1,57 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
+    <title>结账</title>
+    <style>
+        .order {
+            padding: 0 20px;
+            height: 60px;
+            font-size: 23px;
+            line-height: 60px;
+        }
+
+        .order .price_badge {
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="col" style="height: 50px;"></div>
+        <div class="row align-items-center">
+            <div class="col"></div>
+            <div class="col-8 list-group">
+                {% for order in orderList %}
+                <div class="list-group-item order" order_id={{order.ID}}>
+                    <div class="row">
+                        <div class="col-4">{{order.create_time|date:"Y-m-d H:i"}}</div>
+                        <div class="col-5 text-center">桌号：{{order.table_id}}</div>
+                        <div class="col-3 price_badge text-right">
+                            <h4><span class="badge badge-danger badge-pill">￥ {{order.total_price}}</span></h4>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+
+</body>
+
+</html>
