@@ -77,6 +77,20 @@ class Order {
         input.attr("value", input.val());
         this.foodList[this.indexOfFood(foodID)].amount = parseInt(input.val());
     };
+    updateFoodAmount = function(foodID) {
+        var item = $("#OrderList").find("li[foodID={0}]".format(foodID));
+        var input = item.find("div.row").find(".input-group .FoodAmount");
+
+        var amount = parseInt(input.val());
+        if (input.val() == "" || amount <= 1) {
+            input.val(1);
+        } else if (amount > 99) {
+            input.val(99);
+        }
+
+        input.attr("value", input.val());
+        this.foodList[this.indexOfFood(foodID)].amount = parseInt(input.val());
+    };
 
     indexOfFood = function(foodID) {
         for (var i = 0; i < this.foodList.length; i++) {

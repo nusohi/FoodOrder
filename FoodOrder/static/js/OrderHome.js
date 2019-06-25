@@ -74,7 +74,7 @@ $(document).ready(function() {
 
         $("#tableID").html(window.table);
         $("#table-option-sheet").hide(200);
-        
+
         bs4pop.notice("已更改桌号为：{0}".format(window.table), {
             type: "warning"
         });
@@ -155,8 +155,14 @@ $(document).on("click", ".FoodItem", function() {
 
     // 商品数量变动（input）
     $("input.FoodAmount").on("change", function() {
-        console.log("change!");
         $(this).attr("value", $(this).val());
+        // 保证输入值规范（1-99），保证订单信息及时更新
+        var foodID = parseInt(
+            $(this)
+                .parents(".OrderItem")
+                .attr("foodid")
+        );
+        window.order.updateFoodAmount(foodID);
         UpdateOrderPrice();
     });
 
