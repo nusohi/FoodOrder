@@ -10,11 +10,11 @@ class Foodtype(models.Model):
 
 
 class Food(models.Model):
-
     ID = models.AutoField(primary_key=True)
     title = models.CharField(max_length=20)
     amount = models.IntegerField(default=0)
     price = models.FloatField(default=0)
+    cost_time = models.IntegerField(default=0)
     foodType = models.ForeignKey(
         'Foodtype', to_field="ID", on_delete=models.PROTECT)
 
@@ -27,6 +27,7 @@ class Order(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     pay_time = models.DateTimeField(null=True)
     is_pay = models.BooleanField(default=False)
+    table = models.IntegerField(default=0)
 
     def __str__(self):
         return 'Order ' + str(self.ID)

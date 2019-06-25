@@ -1,4 +1,5 @@
 window.order = new Order();
+window.table = 0;
 
 String.prototype["format"] = function() {
     const e = arguments;
@@ -111,13 +112,20 @@ $(document).on("click", ".nav-link", function() {
     $("#OrderSubmit")
         .off("click")
         .click(function() {
+            if (window.order.foodList.length == 0) {
+                window.alert("请选择菜品！");
+                return;
+            }
             var submit_data = {
-                order: JSON.stringify(window.order.foodList)
+                foodList: JSON.stringify(window.order.foodList),
+                table: window.table
             };
 
-            console.log(submit_data);
             $.post("\\order\\", submit_data, function(data) {
-                console.log(data);
+                // 加载新的页面 (订单页) url: /order/q{order_id}
+                data=JSON.parse(data)
+                order_id = data["order_id"];
+                $(location).attr('href', "/order/q{0}".format(order_id));
             });
         });
 });

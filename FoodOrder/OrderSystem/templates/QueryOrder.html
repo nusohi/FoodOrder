@@ -1,0 +1,30 @@
+{% load static from staticfiles %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
+    <title>订单信息</title>
+</head>
+<body>
+    <div class="">订单：{{order}}</div>
+    <div class="">订单创建时间：{{order.create_time}}</div>
+    <div class="">订单支付状态：{{order.is_pay}}</div>
+    
+    {% for food in foodList %}
+    <div class="">-----------------------</div>
+    <div class="">Food编号：{{food.ID}}</div>
+    <div class="">Food名称：{{food.title}}</div>
+    <div class="">Food数量：{{food.amount}}</div>
+    <div class="">Food总价：{{food.sum_price}}</div>
+    {% endfor %}
+
+
+    <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>
+    <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
+</body>
+</html>
