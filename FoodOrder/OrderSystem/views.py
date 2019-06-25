@@ -4,6 +4,7 @@ from .models import Food, Foodtype, Order, OrderItem
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 import json
+import datetime
 
 
 @csrf_exempt
@@ -91,9 +92,36 @@ def CheckUnpaidOrder(request):
         cursor.execute(SELECT)
         orderList = dictfetchall(cursor)
 
-    return render(request, 'Checkout.html', {
+    return render(request, 'CheckUnpaidOrder.html', {
         'orderList': orderList,
     })
+
+
+# 结账
+@csrf_exempt
+def CheckOut(request):
+    if request.method == "POST":
+        order_id = request.POST.get('order_id')
+        is_pay = request.POST.get('is_pay')
+
+        if is_pay:
+            order = Order.objects.get(pk=order_id)
+            if order.is_pay == True:
+                print("已经支付！")
+                return HttpResponse(json.dumps({
+                    'status': 'ALREADY_PAY'
+                }))
+
+            order.is_pay = True
+            order.pay_time = datetime.datetime.now()
+            order.save()
+            return HttpResponse(json.dumps({
+                'status': 'OK'
+            }))
+        else:
+            return HttpResponse(json.dumps({
+                'status': 'NO_PAY'
+            }))
 
 
 def dictfetchall(cursor):

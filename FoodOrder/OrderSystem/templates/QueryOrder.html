@@ -11,7 +11,7 @@
     <title>订单信息</title>
 </head>
 <body>
-    <div class="">订单：{{order}}</div>
+    <div class="" id="order" order_id={{order.ID}}>订单：{{order}}</div>
     <div class="">订单创建时间：{{order.create_time}}</div>
     <div class="">订单支付状态：{{order.is_pay}}</div>
     
@@ -23,8 +23,11 @@
     <div class="">Food总价：{{food.sum_price}}</div>
     {% endfor %}
 
+    <button class="btn btn-success" id="check-out-btn">支付订单</button>
+
 
     <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>
     <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/CheckOut.js' %}"></script>
 </body>
 </html>
