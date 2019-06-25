@@ -7,6 +7,9 @@ a:hover {
 }
 
 
+
+/* 卡片 Hover 点击效果 */
+
 .FoodCard {
     z-index: 1;
     font-size: inherit;
@@ -38,8 +41,17 @@ a:hover {
 }
 
 
+#table-option-sheet {
+    display: none;
+}
+#table-option-sheet .card{
+    background-color: #f8f9fa;
+    width: 350px;
+    bottom: 90px;
+}
+
 /* 底部导航栏 */
-.NavBar {
+.BottomNavBar {
     height: 80px;
-    background-color: #ffffff;
+    background-color: #f8f9fa;
 }

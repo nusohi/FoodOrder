@@ -1,5 +1,15 @@
-window.order = new Order();
-window.table = 0;
+$(function() {
+    window.order = new Order();
+
+    // 桌号读取、写入与显示
+    if ($.cookie("cookie_table") == undefined) {
+        window.table = 0;
+        $.cookie("cookie_table", window.table);
+    } else {
+        window.table = $.cookie("cookie_table");
+    }
+    $("#tableID").html(window.table);
+});
 
 String.prototype["format"] = function() {
     const e = arguments;
@@ -11,10 +21,59 @@ String.prototype["format"] = function() {
     );
 };
 
+// 订单价格刷新
+UpdateOrderPrice = function() {
+    var orderPrice = 0;
+    $(".OrderItem").each(function() {
+        var amount = parseInt(
+            $(this)
+                .find("input.FoodAmount")
+                .val()
+        );
+        var price = $(this).attr("price");
+        $(this)
+            .find("span.totalPrice")
+            .html((amount * price).toFixed(2));
+        orderPrice += amount * price;
+    });
+    $("#orderPrice").html("￥ " + orderPrice.toFixed(2));
+};
+
 $(document).ready(function() {
     // 商品种类 Tab 默认第一个
     $("#foodTypeTabContent").ready(function() {
         $("#foodTypeTab .nav-link:first").click();
+    });
+
+    // 桌号选择表 显示与隐藏
+    $("#table-option")
+        .off("click")
+        .click(function(event) {
+            event.stopPropagation(); // 消除冒泡现象
+            var sheet = $("#table-option-sheet");
+            if ($("#table-option-sheet").css("display") == "none") {
+                sheet.show(250);
+            } else {
+                sheet.hide(300);
+            }
+        });
+    // 点击空白处隐藏 桌号选择表
+    $(document).click(function(event) {
+        var _con = $("#table-option-sheet"); // 设置目标区域
+        if (!_con.is(event.target) && _con.has(event.target).length === 0) {
+            $("#table-option-sheet").hide(300); //淡出消失
+        }
+    });
+
+    // 桌号选择
+    $(".room-opt-btn").click(function() {
+        var to_table_id = parseInt($(this).html());
+        // 记录并存储桌号到 cookie
+        window.table = to_table_id;
+        $.cookie("cookie_table", window.table);
+
+        $("#tableID").html(window.table);
+        $("#table-option-sheet").hide(200);
     });
 });
 
@@ -34,6 +93,32 @@ $(document).on("click", ".nav-link", function() {
             UpdateOrderPrice();
         });
 
+    // 订单提交
+    $("#OrderSubmit")
+        .off("click")
+        .click(function() {
+            if (window.order.foodList.length == 0) {
+                window.alert("请选择菜品！");
+                return;
+            } else if (window.table == 0) {
+                window.alert("请选择桌号！");
+                return;
+            }
+            var submit_data = {
+                foodList: JSON.stringify(window.order.foodList),
+                table: window.table
+            };
+
+            $.post("\\order\\", submit_data, function(data) {
+                // 加载新的页面 (订单页) url: /order/q{order_id}
+                data = JSON.parse(data);
+                order_id = data["order_id"];
+                $(location).attr("href", "/order/q{0}".format(order_id));
+            });
+        });
+});
+
+$(document).on("click", ".FoodItem", function() {
     // 商品添加数量
     $(".AddFood")
         .off("click")
@@ -71,24 +156,6 @@ $(document).on("click", ".nav-link", function() {
         UpdateOrderPrice();
     });
 
-    // 订单价格刷新
-    UpdateOrderPrice = function() {
-        var orderPrice = 0;
-        $(".OrderItem").each(function() {
-            var amount = parseInt(
-                $(this)
-                    .find("input.FoodAmount")
-                    .val()
-            );
-            var price = $(this).attr("price");
-            $(this)
-                .find("span.totalPrice")
-                .html((amount * price).toFixed(2));
-            orderPrice += amount * price;
-        });
-        $("#orderPrice").html("￥ " + orderPrice.toFixed(2));
-    };
-
     // 限制数量输入 暂仅限制输入为数字
     $(".FoodAmount")
         .keyup(function() {
@@ -107,25 +174,4 @@ $(document).on("click", ".nav-link", function() {
             );
         })
         .css("ime-mode", "disabled"); // CSS设置输入法不可用
-
-    // 订单提交
-    $("#OrderSubmit")
-        .off("click")
-        .click(function() {
-            if (window.order.foodList.length == 0) {
-                window.alert("请选择菜品！");
-                return;
-            }
-            var submit_data = {
-                foodList: JSON.stringify(window.order.foodList),
-                table: window.table
-            };
-
-            $.post("\\order\\", submit_data, function(data) {
-                // 加载新的页面 (订单页) url: /order/q{order_id}
-                data=JSON.parse(data)
-                order_id = data["order_id"];
-                $(location).attr('href', "/order/q{0}".format(order_id));
-            });
-        });
 });
