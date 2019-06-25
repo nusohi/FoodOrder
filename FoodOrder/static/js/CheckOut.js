@@ -7,10 +7,14 @@ $("#check-out-btn")
     .off("click")
     .click(function() {
         console.log("尝试支付订单!");
-        post_data = {
+        order_list = JSON.stringify([{
             order_id: window.order_id,
             is_pay: true
+        }]);
+        post_data = {
+            order_list: order_list
         };
+        console.log(post_data);
         $.post("\\order\\checkout", post_data, function(data) {
             data = JSON.parse(data);
             if (data.status == "OK") {

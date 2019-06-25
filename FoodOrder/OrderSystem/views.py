@@ -102,7 +102,9 @@ def CheckUnpaidOrder(request):
 def CheckOut(request):
     if request.method == "POST":
         order_list = json.loads(request.POST.get('order_list'))
+        print(order_list)
         for order_data in order_list:
+            print(order_data)
             order_id = order_data['order_id']
             is_pay = order_data['is_pay']
 
