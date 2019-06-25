@@ -101,27 +101,30 @@ def CheckUnpaidOrder(request):
 @csrf_exempt
 def CheckOut(request):
     if request.method == "POST":
-        order_id = request.POST.get('order_id')
-        is_pay = request.POST.get('is_pay')
+        order_list = json.loads(request.POST.get('order_list'))
+        for order_data in order_list:
+            order_id = order_data['order_id']
+            is_pay = order_data['is_pay']
 
-        if is_pay:
-            order = Order.objects.get(pk=order_id)
-            if order.is_pay == True:
-                print("已经支付！")
+            if is_pay:
+                order = Order.objects.get(pk=order_id)
+                if order.is_pay == True:
+                    print("已经支付！")
+                    return HttpResponse(json.dumps({
+                        'status': 'ALREADY_PAY'
+                    }))
+
+                order.is_pay = True
+                order.pay_time = datetime.datetime.now()
+                order.save()
+            else:
                 return HttpResponse(json.dumps({
-                    'status': 'ALREADY_PAY'
+                    'status': 'NO_PAY'
                 }))
 
-            order.is_pay = True
-            order.pay_time = datetime.datetime.now()
-            order.save()
-            return HttpResponse(json.dumps({
-                'status': 'OK'
-            }))
-        else:
-            return HttpResponse(json.dumps({
-                'status': 'NO_PAY'
-            }))
+        return HttpResponse(json.dumps({
+            'status': 'OK'
+        }))
 
 
 def dictfetchall(cursor):
