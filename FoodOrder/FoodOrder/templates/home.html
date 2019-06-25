@@ -1,0 +1,58 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
+    <title>某某店家</title>
+    <style>
+        a:hover{
+            text-decoration: none;
+        }
+
+        #entry-button-group {
+            margin-top: 200px;
+        }
+
+        #entry-button-group .btn {
+            height: 160px;
+            font-size: 50px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row" id="entry-button-group">
+                    <div class="col">
+                        <a href="/order">
+                            <button class="btn btn-block btn-outline-primary">点 菜</button>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-block btn-outline-success">结 账</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-block btn-outline-danger">管 理</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+
+</body>
+
+</html>

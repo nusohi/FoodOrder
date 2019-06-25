@@ -10,6 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/OrderHome.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bs4.pop.css'%}">
     <title>点菜</title>
 </head>
 
@@ -101,7 +102,9 @@
             <div class="col-4 m-auto">
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-light btn-block">返回</button>
+                        <a href="/">
+                            <button class="btn btn-light btn-block">返回</button>
+                        </a>
                     </div>
                     <div class="col mr-3">
                         <button class="btn btn-primary btn-block" id="OrderSubmit">提交</button>
@@ -117,6 +120,7 @@
     <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
     <script src="{% static 'js/Order.js' %}"></script>
     <script src="{% static 'js/OrderHome.js' %}"></script>
+    <script src="{% static 'js/bs4.pop.js' %}"></script>
 
 </body>
 

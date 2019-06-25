@@ -65,7 +65,7 @@ $(document).ready(function() {
         }
     });
 
-    // 桌号选择
+    // 桌号选择与更改
     $(".room-opt-btn").click(function() {
         var to_table_id = parseInt($(this).html());
         // 记录并存储桌号到 cookie
@@ -74,6 +74,10 @@ $(document).ready(function() {
 
         $("#tableID").html(window.table);
         $("#table-option-sheet").hide(200);
+        
+        bs4pop.notice("已更改桌号为：{0}".format(window.table), {
+            type: "warning"
+        });
     });
 });
 
@@ -98,10 +102,10 @@ $(document).on("click", ".nav-link", function() {
         .off("click")
         .click(function() {
             if (window.order.foodList.length == 0) {
-                window.alert("请选择菜品！");
+                bs4pop.notice("请选择菜品！", { type: "danger" });
                 return;
             } else if (window.table == 0) {
-                window.alert("请选择桌号！");
+                bs4pop.notice("请选择桌号！", { type: "danger" });
                 return;
             }
             var submit_data = {
