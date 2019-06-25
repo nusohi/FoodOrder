@@ -27,7 +27,9 @@ class Order(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     pay_time = models.DateTimeField(null=True)
     is_pay = models.BooleanField(default=False)
-    table = models.IntegerField(default=0)
+    table_id = models.IntegerField(default=0)
+    food_amount=models.IntegerField(default=0)
+    total_price = models.FloatField(default=0)
 
     def __str__(self):
         return 'Order ' + str(self.ID)
