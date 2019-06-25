@@ -17,7 +17,7 @@ $(document).ready(function() {
     });
 });
 
-$(document).on("click", ".FoodItem", function() {
+$(document).on("click", ".nav-link", function() {
     // 添加菜品到订单
     $(".FoodItem")
         .off("click")
@@ -112,7 +112,7 @@ $(document).on("click", ".FoodItem", function() {
         .off("click")
         .click(function() {
             var submit_data = {
-                'order': JSON.stringify(window.order.foodList)
+                order: JSON.stringify(window.order.foodList)
             };
 
             console.log(submit_data);

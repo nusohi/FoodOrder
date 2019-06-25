@@ -28,9 +28,15 @@ class Order(models.Model):
     pay_time = models.DateTimeField(null=True)
     is_pay = models.BooleanField(default=False)
 
+    def __str__(self):
+        return 'Order ' + str(self.ID)
+
 
 class OrderItem(models.Model):
     orderID = models.ForeignKey('Order', on_delete=models.CASCADE)
     foodID = models.ForeignKey('Food', on_delete=models.PROTECT)
     amount = models.IntegerField(default=1)
     sum_price = models.FloatField(default=0)
+
+    def __str__(self):
+        return self.foodID.title + ' in Order ' + str(self.orderID.ID)
