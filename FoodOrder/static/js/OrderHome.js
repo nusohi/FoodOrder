@@ -108,18 +108,35 @@ $(document).on("click", ".nav-link", function() {
                 bs4pop.notice("请选择桌号！", { type: "danger" });
                 return;
             }
-            var post_data = {
-                foodList: JSON.stringify(window.order.foodList),
-                table: window.table
-            };
+            
+            bs4pop.confirm(
+                "请确认桌号为 {0} !".format(window.table),
+                function(sure) {
+                    if (!sure) {
+                        return;
+                    }
+                    var post_data = {
+                        foodList: JSON.stringify(window.order.foodList),
+                        table: window.table
+                    };
 
-            $.post("\\order\\", post_data, function(data) {
-                // 加载新的页面 (订单页) url: /order/q{order_id}
-                data = JSON.parse(data);
-                order_id = data["order_id"];
-                $(location).attr("href", "/order/q{0}".format(order_id));
-            });
+                    $.post("\\order\\", post_data, function(data) {
+                        // 加载新的页面 (订单页) url: /order/q{order_id}
+                        data = JSON.parse(data);
+                        order_id = data["order_id"];
+                        $(location).attr(
+                            "href",
+                            "/order/q{0}".format(order_id)
+                        );
+                    });
+                }
+                ,{
+                    title:"确认订单"
+                }
+            );
         });
+
+        
 });
 
 $(document).on("click", ".FoodItem", function() {

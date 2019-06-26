@@ -26,7 +26,6 @@ class Order {
         var html = '<li class="OrderItem list-group-item" foodID={0} price={3}>\
                 <div class="row">\
                     <div class="col-5"><span class=align-middle">{1}</span></div>\
-                    <div hidden class="foodPrice">{2}</div>\
                     <div class="input-group input-group-sm col-4">\
                         <div class="input-group-prepend"><button class="btn SubFood input-group-text" type="button">-</button></div>\
                         <input type="text" class="FoodAmount form-control text-center" value="1"style="max-width: 50px;">\

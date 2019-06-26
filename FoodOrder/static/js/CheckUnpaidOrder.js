@@ -36,36 +36,51 @@ $("#OrderSubmit")
             return;
         }
 
-        bs4pop.notice("正在批量支付订单", {
-            type: "info"
-        });
+        bs4pop.confirm(
+            "确认批量支付!",
+            function(sure) {
+                if (sure) {
+                    _confirm_order_();
+                }
+            },
+            { title: "" }
+        );
 
-        order_data_list = [];
-        window.order_id_list.forEach(order_id => {
-            order_data_list.push({
-                order_id: order_id,
-                is_pay: true
+        var _confirm_order_ = function() {
+            bs4pop.notice("正在批量支付订单！", {
+                type: "info"
             });
-        });
+            
+            // 生成订单 List
+            order_data_list = [];
+            window.order_id_list.forEach(order_id => {
+                order_data_list.push({
+                    order_id: order_id,
+                    is_pay: true
+                });
+            });
+            order_data_list = JSON.stringify(order_data_list);
+            post_data = {
+                order_list: order_data_list
+            };
 
-        order_data_list = JSON.stringify(order_data_list);
-        post_data = {
-            order_list: order_data_list
+            // 向后端发送订单 List 并处理结果
+            $.post("\\order\\checkout", post_data, function(data) {
+                data = JSON.parse(data);
+                if (data.status == "OK") {
+                    bs4pop.notice("支付成功！即将返回主页.");
+                    setTimeout(function() {
+                        $(location).attr("href", "/");
+                    }, 2000);
+                } else if (data.status == "NO_PAY") {
+                    bs4pop.notice("支付失败！");
+                } else if (data.status == "ALREADY_PAY") {
+                    bs4pop.notice(
+                        "支付失败，可能是部分订单已经支付！请刷新页面！"
+                    );
+                }
+            });
         };
-        console.log(post_data);
-
-        $.post("\\order\\checkout", post_data, function(data) {
-            data = JSON.parse(data);
-            if (data.status == "OK") {
-                window.alert("支付成功！点击确定返回主页.");
-                $(location).attr("href", "/");
-                console.log("支付成功！");
-            } else if (data.status == "NO_PAY") {
-                console.log("支付失败，is_pay无效.");
-            } else if (data.status == "ALREADY_PAY") {
-                bs4pop.notice("支付失败，可能是部分订单已经支付！请刷新页面！");
-            }
-        });
     });
 
 // 更新价格 与 支付按钮状态
@@ -89,3 +104,20 @@ UpdatePrice = function() {
         }
     }
 };
+
+// 辅助--倒计时器
+function Countdown(time_html_node, func) {
+    var delay = parseInt(time_html_node.html());
+    var t = setTimeout(function() {
+        Countdown(time_html_node, func);
+    }, 1000);
+
+    if (delay > 1) {
+        delay--;
+        time_html_node.html(delay);
+    } else {
+        time_html_node.html(0);
+        clearTimeout(t);
+        func();
+    }
+}
