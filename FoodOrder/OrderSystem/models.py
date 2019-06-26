@@ -1,9 +1,10 @@
 from django.db import models
+from datetime import datetime
 
 
 class Foodtype(models.Model):
     ID = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
@@ -27,9 +28,11 @@ class Order(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     pay_time = models.DateTimeField(null=True)
     is_pay = models.BooleanField(default=False)
-    table_id = models.IntegerField(default=0)
-    food_amount=models.IntegerField(default=0)
+    food_amount = models.IntegerField(default=0)
     total_price = models.FloatField(default=0)
+    table_id = models.IntegerField(default=0)
+    staff = models.ForeignKey(
+        'Staff', on_delete=models.DO_NOTHING)     # 当时负责的员工
 
     def __str__(self):
         return 'Order ' + str(self.ID)
@@ -43,3 +46,25 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.foodID.title + ' in Order ' + str(self.orderID.ID)
+
+
+class Staff(models.Model):
+    ID = models.AutoField(primary_key=True)         # 员工ID
+    citizenID = models.CharField(max_length=20)     # 身份证件号
+    name = models.CharField(max_length=10)
+    gender = models.CharField(max_length=5, choices=(
+        ('male', '男'), ('female', '女')), default='male')
+    born_date = models.DateField(null=True)
+    phone = models.CharField(max_length=11)
+
+    def __str__(self):
+        return self.name
+
+
+class Staff_Table(models.Model):
+    ID = models.IntegerField(default=0, primary_key=True)
+    name = models.CharField(max_length=20)
+    staff = models.ForeignKey('Staff', on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return str(self.ID) + ' ' + self.name
