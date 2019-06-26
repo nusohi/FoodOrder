@@ -44,7 +44,8 @@ a:hover {
 #table-option-sheet {
     display: none;
 }
-#table-option-sheet .card{
+
+#table-option-sheet .card {
     background-color: #f8f9fa;
     width: 350px;
     bottom: 90px;
@@ -54,4 +55,9 @@ a:hover {
 .BottomNavBar {
     height: 80px;
     background-color: #f8f9fa;
+}
+
+
+.DeleteItemBtn {
+    border-radius: 50%;
 }

@@ -3,18 +3,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <title>订单信息</title>
+    <style>
+        #returnBtn {
+            color: #b3b3b3;
+        }
+
+        #returnBtn:hover {
+            color: #2c2c2c;
+        }
+    </style>
 </head>
+
 <body>
     <div class="" id="order" order_id={{order.ID}}>订单：{{order}}</div>
     <div class="">订单创建时间：{{order.create_time}}</div>
     <div class="">订单支付状态：{{order.is_pay}}</div>
-    
+
     {% for food in foodList %}
     <div class="">-----------------------</div>
     <div class="">Food编号：{{food.ID}}</div>
@@ -29,12 +40,13 @@
     <!-- 底部导航栏 -->
     <div class="BottomNavBar NavBar row fixed-bottom border-top" style="height:80px">
         <div class="col-3 m-auto text-center" id="orderPrice"
-            style="font-size: 40px; line-height: 40px; color: rgb(243, 47, 47)">￥ <span id="total_price">0.00</span></div>
+            style="font-size: 40px; line-height: 40px; color: rgb(243, 47, 47)">￥ <span id="total_price">0.00</span>
+        </div>
         <div class="col-5 m-auto"></div>
         <div class="col-4 m-auto">
             <div class="row">
                 <div class="col">
-                    <a href="/" class="btn btn-light btn-block">返回主页</a>
+                    <a href="/" class="btn btn-light btn-block" id="returnBtn">返回主页</a>
                 </div>
                 <div class="col mr-3">
                     <button class="btn btn-success btn-block" id="check-out-btn">支付订单</button>
@@ -48,4 +60,5 @@
     <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
     <script src="{% static 'js/CheckOut.js' %}"></script>
 </body>
+
 </html>

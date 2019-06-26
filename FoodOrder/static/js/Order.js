@@ -33,7 +33,7 @@ class Order {
                         <div class="input-group-append"><button class="btn AddFood input-group-text" type="button">+</button></div>\
                     </div>\
                     <div class="col-2 p-0"><span class="totalPrice aligin-middle" style="line-height:30px">{3}</span></div>\
-                    <div class="col-1 p-0"><button class="DeleteItemBtn btn btn-sm p-1">删</button></div>\
+                    <div class="col-1 p-0"><button class="btn btn-sm p-1 btn-block DeleteItemBtn">删</button></div>\
                 </div>\
             </li>'.format(
             food.id,
