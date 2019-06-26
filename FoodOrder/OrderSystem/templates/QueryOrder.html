@@ -23,7 +23,25 @@
     <div class="">Food总价：{{food.sum_price}}</div>
     {% endfor %}
 
-    <button class="btn btn-success" id="check-out-btn">支付订单</button>
+
+    <!-- 底部填空区域 -->
+    <div style="height:80px"></div>
+    <!-- 底部导航栏 -->
+    <div class="BottomNavBar NavBar row fixed-bottom border-top" style="height:80px">
+        <div class="col-3 m-auto text-center" id="orderPrice"
+            style="font-size: 40px; line-height: 40px; color: rgb(243, 47, 47)">￥ <span id="total_price">0.00</span></div>
+        <div class="col-5 m-auto"></div>
+        <div class="col-4 m-auto">
+            <div class="row">
+                <div class="col">
+                    <a href="/" class="btn btn-light btn-block">返回主页</a>
+                </div>
+                <div class="col mr-3">
+                    <button class="btn btn-success btn-block" id="check-out-btn">支付订单</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.js"></script>

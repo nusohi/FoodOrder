@@ -21,11 +21,10 @@
             <div class="col"></div>
             <div class="col-8 list-group">
                 {% for order in orderList %}
-                <!-- Default unchecked -->
                 <div class="row">
                     <div class="col-1 order-check-box text-center"></div>
                     <div class="col ml-1 list-group-item order" order_id={{order.ID}} order_price={{order.total_price}}>
-                        <a href="/order/q{{order.ID}}">
+                        <a href="/order/q{{order.ID}}" target="blank">
                             <div class="row">
                                 <div class="col-4">{{order.create_time|date:"Y-m-d H:i"}}</div>
                                 <div class="col-5 text-center">桌号：{{order.table_id}}</div>
@@ -45,7 +44,7 @@
     <!-- 底部填空区域 -->
     <div style="height:80px"></div>
     <!-- 底部导航栏 -->
-    <div class="BottomNavBar NavBar row fixed-bottom border-top" style="height:80px">
+    <div class="BottomNavBar NavBar row fixed-bottom border-top">
         <div class="col-3 m-auto text-center" id="orderPrice"
             style="font-size: 40px; line-height: 40px; color: rgb(243, 47, 47)">￥ <span id="total_price">0.00</span></div>
         <div class="col-5 m-auto"></div>

@@ -26,6 +26,11 @@ a:hover {
     background-color: #fc98a2;
 }
 
+.BottomNavBar {
+    height: 80px;
+    background-color: #f8f9fa;
+}
+
 
 /* 订单多选 CheckBox */
 .order-check-box {
@@ -46,6 +51,13 @@ a:hover {
 }
 
 
+/* checkout 选中效果 box */
 .check {
     background-color: #28a745;
+}
+
+/* checkout 选中效果 order */
+.check-order-green {
+    color: #094616;
+    background-color: #76f79449;
 }

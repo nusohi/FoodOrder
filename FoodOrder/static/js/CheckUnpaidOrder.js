@@ -10,10 +10,16 @@ $(".order-check-box")
         var order_id = order.attr("order_id");
 
         if ($(this).hasClass("check")) {
+            $(this)
+                .next()
+                .removeClass("check-order-green");
             $(this).removeClass("check");
             window.order_id_list.pop(order_id);
         } else {
             $(this).addClass("check");
+            $(this)
+                .next()
+                .addClass("check-order-green");
             window.order_id_list.push(order_id);
         }
         UpdatePrice();
@@ -41,12 +47,12 @@ $("#OrderSubmit")
                 is_pay: true
             });
         });
-        
+
         order_data_list = JSON.stringify(order_data_list);
         post_data = {
             order_list: order_data_list
         };
-        console.log(post_data)
+        console.log(post_data);
 
         $.post("\\order\\checkout", post_data, function(data) {
             data = JSON.parse(data);
