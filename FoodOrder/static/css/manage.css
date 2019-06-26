@@ -1,0 +1,10 @@
+.serving {
+    background-color: rgba(255, 224, 224, 0.781);
+    color: #9c3f3f;
+    transition: all 200ms ease-in-out;
+}
+
+.serving:hover {
+    background-color: rgba(239, 108, 108, 0.781);
+    color: #ffffff;
+}

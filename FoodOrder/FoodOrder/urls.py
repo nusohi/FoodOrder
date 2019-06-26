@@ -16,9 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+from OrderSystem import views as order_views
 
 urlpatterns = [
     path('', views.home),
     path('admin/', admin.site.urls),
     path('order/', include('OrderSystem.urls')),
+    path('manage/', include([
+        path('', order_views.manage),
+        path('serving_table_list', order_views.getServingTableList),
+    ])),
 ]

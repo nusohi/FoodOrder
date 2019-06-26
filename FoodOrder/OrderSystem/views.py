@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Food, Foodtype, Order, OrderItem
+from .models import Food, Foodtype, Order, OrderItem, Staff, Staff_Table
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
 import json
@@ -12,21 +12,27 @@ def OrderHome(request):
     if request.method == "GET":
         foodList = Food.objects.all()
         foodTypeList = Foodtype.objects.all()
+        tableList = Staff_Table.objects.all()
         return render(
             request,
             'OrderHome.html',
             {
                 'foodList': foodList,
-                'foodTypeList': foodTypeList
+                'foodTypeList': foodTypeList,
+                'tableList': tableList,
             }
         )
     elif request.method == "POST":
         foodList = json.loads(request.POST.get('foodList'))
         table_id = request.POST.get('table')
 
-        # 创建订单
+        # 创建订单 填写基本信息
         new_order = Order(table_id=table_id, is_pay=False)
-        new_order.save()    # 先 save 再获取 ID
+        staff_in_charge = Staff_Table.objects.get(pk=table_id).staff
+        new_order.staff = staff_in_charge   # 当前桌子的负责人
+        new_order.save()
+
+        # 先 save 再获取 ID
         order_id = new_order.ID
         food_amount = 0
         total_price = 0
@@ -91,6 +97,7 @@ def CheckUnpaidOrder(request):
         SELECT = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
         cursor.execute(SELECT)
         orderList = dictfetchall(cursor)
+        print(orderList)
 
     return render(request, 'CheckUnpaidOrder.html', {
         'orderList': orderList,
@@ -127,6 +134,59 @@ def CheckOut(request):
         return HttpResponse(json.dumps({
             'status': 'OK'
         }))
+
+
+def manage(request):
+    # (餐桌号 + 餐桌名字 + 负责人ID + 负责人姓名)
+    tableInfoList = []
+    with connection.cursor() as cursor:
+        SELECT_COL = '{0}_staff_table.ID table_id '
+        SELECT_COL += ', {0}_staff_table.name table_name '
+        SELECT_COL += ', {0}_staff.ID staff_id '
+        SELECT_COL += ', {0}_staff.name staff_name '
+        SELECT_COL = SELECT_COL.format('OrderSystem')
+
+        SELECT_FROM = '{0}_staff_table, {0}_staff '
+        SELECT_FROM = SELECT_FROM.format('OrderSystem')
+
+        SELECT_WHERE = 'staff_id = {0}_staff_table.staff_id '
+        SELECT_WHERE = SELECT_WHERE.format('OrderSystem')
+
+        SELECT_SQL = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
+        cursor.execute(SELECT_SQL)
+
+        tableInfoList = dictfetchall(cursor)
+
+    return render(request, 'manage.html', {
+        'tableInfoList': tableInfoList,
+    })
+
+
+@csrf_exempt
+def getServingTableList(request):
+     # (餐桌号 + 餐桌名字 + 负责人ID + 负责人姓名)
+    servingTableList = []
+    with connection.cursor() as cursor:
+        SELECT_COL = 'distinct {0}_order.table_id table_id '
+        SELECT_COL = SELECT_COL.format('OrderSystem')
+
+        SELECT_FROM = '{0}_order '
+        SELECT_FROM = SELECT_FROM.format('OrderSystem')
+
+        SELECT_WHERE = '{0}_order.is_pay = 0 '  # false 0
+        SELECT_WHERE = SELECT_WHERE.format('OrderSystem')
+
+        SELECT_SQL = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
+        SELECT_SQL += 'order by table_id'
+        cursor.execute(SELECT_SQL)
+
+        servingTableInfoList = dictfetchall(cursor)
+        for tableInfo in servingTableInfoList:
+            servingTableList.append(tableInfo['table_id'])
+
+    return HttpResponse(json.dumps({
+        'servingTableList': servingTableList
+    }))
 
 
 def dictfetchall(cursor):

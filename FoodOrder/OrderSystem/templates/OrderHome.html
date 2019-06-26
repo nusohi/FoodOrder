@@ -82,9 +82,8 @@
         <div class="row" id="table-option-sheet">
             <div class="col ml-2 card fixed-bottom">
                 <div class="card-body">
-                    {% load filter_range %}
-                    {% for i in 1|range:21 %}
-                    <button class="room-opt-btn btn btn-light px-0" style="width:50px;">{{i}}</button>
+                    {% for table in tableList %}
+                    <button class="room-opt-btn btn btn-light px-0" style="width:50px;">{{table.ID}}</button>
                     {% endfor %}
                 </div>
             </div>

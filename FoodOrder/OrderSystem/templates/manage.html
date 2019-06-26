@@ -1,0 +1,72 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static '/css/manage.css'%}">
+    <link rel="stylesheet" href="{% static 'css/bs4.pop.css'%}">
+    <title>某某店家的管理后台</title>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="row mt-2">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <div class="row" id="entry-button-group">
+                    <div class="col">
+                        <a href="">
+                            <button class="btn btn-block btn-outline-primary">订 单</button>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="">
+                            <button class="btn btn-block btn-outline-success">餐桌负责人安排</button>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="">
+                            <button class="btn btn-block btn-outline-danger">员工信息</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2"></div>
+        </div>
+
+        <div class="row mt-3">
+            <table class="col-4 table text-center" id="table-info-table">
+                <caption>餐桌负责状态表</caption>
+                <tr>
+                    <th>桌号</th>
+                    <th>桌名</th>
+                    <th>负责人</th>
+                    <th>状态</th>
+                </tr>
+                {% for tableInfo in tableInfoList %}
+                <tr table_id={{tableInfo.table_id}} staff_id={{tableInfo.staff_id}}>
+                    <td>{{tableInfo.table_id}}</td>
+                    <td>{{tableInfo.table_name}}</td>
+                    <td>{{tableInfo.staff_name}}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.js' %}"></script>
+    <script src="{% static 'js/bs4.pop.js' %}"></script>
+    <script src="{% static 'js/manage.js' %}"></script>
+
+</body>
+
+</html>
