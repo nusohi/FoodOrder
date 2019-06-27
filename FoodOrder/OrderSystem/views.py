@@ -243,13 +243,14 @@ def set_staff_charge_table(request):
 
 
 # 上菜
+@csrf_exempt
 def delive_food(request):
     if request.method == "POST":
         order_id = request.POST.get("order_id")
         food_id = request.POST.get("food_id")
+        OrderItem.objects.filter(
+            orderID_id=order_id, foodID_id=food_id).update(status=3)
         try:
-            OrderItem.objects.filter(
-                order_id=order_id, food_id=food_id).update(status=3)
             return HttpResponse(json.dumps({
                 'status': "OK"
             }))

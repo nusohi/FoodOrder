@@ -58,8 +58,11 @@ function UpdateOrderItemInfo() {
         item_list.forEach(food => {
             var paras =
                 " order_id=" + food.order_id + " food_id=" + food.food_id;
-            node = '<div class="row food-item" status=' + food.status + paras;
-            '>\
+            node =
+                '<div class="row food-item" status=' +
+                food.status +
+                paras +
+                '>\
                     <div class="col">订单号：' +
                 food.order_id +
                 '</div>\
@@ -112,7 +115,7 @@ function UpdateFoodServeStatus() {
                 }
             });
     });
-    console.log($(this).find(".food-item"));
+    bind_delive_food_btn();
 }
 
 // 切换餐桌负责员工
@@ -145,26 +148,28 @@ $(".staff-opt-btn")
     });
 
 // 上菜
-$(".delive-food-btn")
-    .off("click")
-    .click(function() {
-        var food_item = $(this).parents(".food-item");
-        order_id = food_item.attr("order_id");
-        food_id = food_item.attr("food_id");
+var bind_delive_food_btn = function() {
+    $(".delive-food-btn")
+        .off("click")
+        .click(function() {
+            var food_item = $(this).parents(".food-item");
+            order_id = food_item.attr("order_id");
+            food_id = food_item.attr("food_id");
 
-        $.post(
-            "/manage/delive_food",
-            (post_data = {
-                order_id: order_id,
-                food_id: food_id
-            }),
-            function(data) {
-                data = JSON.parse(data);
-                if (data.status == "OK") {
-                    bs4pop.notice("上菜成功！");
-                } else {
-                    bs4pop.notice("操作失败！");
+            $.post(
+                "/manage/delive_food",
+                (post_data = {
+                    order_id: order_id,
+                    food_id: food_id
+                }),
+                function(data) {
+                    data = JSON.parse(data);
+                    if (data.status == "OK") {
+                        bs4pop.notice("上菜成功！");
+                    } else {
+                        bs4pop.notice("操作失败！");
+                    }
                 }
-            }
-        );
-    });
+            );
+        });
+};
