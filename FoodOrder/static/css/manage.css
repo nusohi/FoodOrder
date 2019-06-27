@@ -1,10 +1,60 @@
 .serving {
+    background-color: rgba(231, 255, 224, 0.781);
+    color: #529c3f;
+    transition: all 200ms ease-in-out;
+}
+
+.serving:hover {
+    background-color: rgb(110, 196, 93);
+    color: #ffffff;
+}
+
+.waiting {
     background-color: rgba(255, 224, 224, 0.781);
     color: #9c3f3f;
     transition: all 200ms ease-in-out;
 }
 
-.serving:hover {
+.waiting:hover {
     background-color: rgba(239, 108, 108, 0.781);
     color: #ffffff;
+}
+
+#entry-button-group button {
+    height: 50px;
+}
+
+a {
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#table-info-table tr:hover {
+    cursor: pointer;
+}
+
+
+.badge:hover {
+    cursor: pointer;
+}
+
+
+
+.staff-opt-btn {
+    width: 80px;
+    /* height: 30px;
+    line-height: 18px; */
+}
+
+
+.food-item {
+    height: 50px;
+    line-height: 50px;
+}
+
+.food-item button {
+    height: 50px;
 }

@@ -137,10 +137,11 @@ def CheckOut(request):
 
 
 def manage(request):
+    staffList = Staff.objects.all()
     # (餐桌号 + 餐桌名字 + 负责人ID + 负责人姓名)
     tableInfoList = []
     with connection.cursor() as cursor:
-        SELECT_COL = '{0}_staff_table.ID table_id '
+        SELECT_COL = ' distinct {0}_staff_table.ID table_id '
         SELECT_COL += ', {0}_staff_table.name table_name '
         SELECT_COL += ', {0}_staff.ID staff_id '
         SELECT_COL += ', {0}_staff.name staff_name '
@@ -149,7 +150,7 @@ def manage(request):
         SELECT_FROM = '{0}_staff_table, {0}_staff '
         SELECT_FROM = SELECT_FROM.format('OrderSystem')
 
-        SELECT_WHERE = 'staff_id = {0}_staff_table.staff_id '
+        SELECT_WHERE = '{0}_staff.ID = {0}_staff_table.staff_id '
         SELECT_WHERE = SELECT_WHERE.format('OrderSystem')
 
         SELECT_SQL = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
@@ -159,6 +160,7 @@ def manage(request):
 
     return render(request, 'manage.html', {
         'tableInfoList': tableInfoList,
+        'staffList': staffList,
     })
 
 
@@ -185,8 +187,76 @@ def getServingTableList(request):
             servingTableList.append(tableInfo['table_id'])
 
     return HttpResponse(json.dumps({
-        'servingTableList': servingTableList
+        'servingTableList': servingTableList,
     }))
+
+
+@csrf_exempt
+def getOrderItemList(request):
+    if request.method == "POST":
+        # 没有指定 order_id 就返回所有 order_item
+        order_id = request.POST.get('order_id')
+
+        with connection.cursor() as cursor:
+            SELECT_COL = '{0}orderitem.orderID_id order_id '
+            SELECT_COL += ',{0}order.table_id table_id '
+            SELECT_COL += ',{0}orderitem.foodID_id food_id '
+            SELECT_COL += ',{0}food.title food_name '
+            SELECT_COL += ',{0}orderitem.amount food_amount '
+            SELECT_COL += ',{0}orderitem.status status '
+            SELECT_COL = SELECT_COL.format('OrderSystem_')
+
+            SELECT_FROM = '{0}orderitem, {0}food, {0}order '
+            SELECT_FROM = SELECT_FROM.format('OrderSystem_')
+
+            SELECT_WHERE = 'food_id = {0}food.ID '
+            SELECT_WHERE += ' and {0}order.ID = order_id '
+            SELECT_WHERE += ' and {0}order.is_pay = 0 '
+            SELECT_WHERE += (' and order_id=' +
+                             order_id) if order_id != None else ''
+            SELECT_WHERE = SELECT_WHERE.format('OrderSystem_')
+
+            SELECT_SQL = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
+            SELECT_SQL += 'order by table_id'
+            cursor.execute(SELECT_SQL)
+
+            orderItemList = dictfetchall(cursor)
+
+            return HttpResponse(json.dumps(orderItemList))
+
+
+# 更新餐桌表 中的 staff
+@csrf_exempt
+def set_staff_charge_table(request):
+    if request.method == "POST":
+        table_id = request.POST.get("table_id")
+        staff_id = request.POST.get("staff_id")
+        try:
+            Staff_Table.objects.filter(pk=table_id).update(staff_id=staff_id)
+            return HttpResponse(json.dumps({
+                'status': "OK"
+            }))
+        except:
+            return HttpResponse(json.dumps({
+                'status': "FAIL"
+            }))
+
+
+# 上菜
+def delive_food(request):
+    if request.method == "POST":
+        order_id = request.POST.get("order_id")
+        food_id = request.POST.get("food_id")
+        try:
+            OrderItem.objects.filter(
+                order_id=order_id, food_id=food_id).update(status=3)
+            return HttpResponse(json.dumps({
+                'status': "OK"
+            }))
+        except:
+            return HttpResponse(json.dumps({
+                'status': "FAIL"
+            }))
 
 
 def dictfetchall(cursor):

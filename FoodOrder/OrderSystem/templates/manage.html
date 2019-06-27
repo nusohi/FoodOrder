@@ -17,31 +17,9 @@
 
     <div class="container">
 
-        <div class="row mt-2">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="row" id="entry-button-group">
-                    <div class="col">
-                        <a href="">
-                            <button class="btn btn-block btn-outline-primary">订 单</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="">
-                            <button class="btn btn-block btn-outline-success">餐桌负责人安排</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="">
-                            <button class="btn btn-block btn-outline-danger">员工信息</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-2"></div>
-        </div>
 
         <div class="row mt-3">
+            <!-- 左侧 餐桌负责状态表 -->
             <table class="col-4 table text-center" id="table-info-table">
                 <caption>餐桌负责状态表</caption>
                 <tr>
@@ -51,7 +29,9 @@
                     <th>状态</th>
                 </tr>
                 {% for tableInfo in tableInfoList %}
-                <tr table_id={{tableInfo.table_id}} staff_id={{tableInfo.staff_id}}>
+                <tr class="" id="table-{{tableInfo.table_id}}" data-toggle="pill"
+                    href="#table-{{tableInfo.table_id}}-content" role="tab" table_id={{tableInfo.table_id}}
+                    staff_id={{tableInfo.staff_id}}>
                     <td>{{tableInfo.table_id}}</td>
                     <td>{{tableInfo.table_name}}</td>
                     <td>{{tableInfo.staff_name}}</td>
@@ -59,7 +39,69 @@
                 </tr>
                 {% endfor %}
             </table>
+            <!-- 右侧 区域 -->
+            <div class="col ml-1">
+                <!-- 顶部的几个按钮 -->
+                <div class="row" id="entry-button-group">
+                    <div class="col">
+                        <a href=""><button class="btn btn-block btn-outline-primary">订 单</button></a>
+                    </div>
+                    <div class="col">
+                        <a href=""><button class="btn btn-block btn-outline-success">餐桌负责人安排</button></a>
+                    </div>
+                    <div class="col">
+                        <a href=""><button class="btn btn-block btn-outline-danger">员工信息</button></a>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    {% for tableInfo in tableInfoList %}
+                    <div class="tab-pane fade table-detail" table_id={{tableInfo.table_id}}
+                        id="table-{{tableInfo.table_id}}-content" role="tabpanel">
+                        <hr>
+                        <h4 class="row">
+                            <div class="col-2">
+                                桌号：{{tableInfo.table_id}}
+                            </div>
+                            <div class="col-4">
+                                负责人：
+                                <span class="badge badge-primary badge-pill"
+                                    id="staff-name-in-table-{{tableInfo.table_id}}" data-toggle="collapse"
+                                    href="#staff-list-in-table-{{tableInfo.table_id}}" role="button">
+                                    {{tableInfo.staff_name}}
+                                </span>
+                            </div>
+                        </h4>
+                        <hr>
+                        <div class="collapse" id="staff-list-in-table-{{tableInfo.table_id}}">
+                            <div class="card card-body">
+                                <div class="row px-3">
+                                    {% for staff in staffList %}
+                                    <button class="staff-opt-btn col-2 btn btn-light px-0" staff_id={{staff.ID}}>
+                                        {{staff.name}}
+                                    </button>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- <div class="row food-item" status=2>
+                            <div class="col">订单号：36</div>
+                            <div class="col">名称：快乐水</div>
+                            <div class="col">数量：1</div>
+                            <div class="col">状态：2</div>
+                            <div class='col'><button class='btn btn-danger'>上菜<button></div>
+                        </div> -->
+
+                    <div class="order-item-table mt-2">
+                        <!-- 动态填充 -->
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
+    </div>
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>

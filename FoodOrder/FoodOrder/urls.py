@@ -25,5 +25,8 @@ urlpatterns = [
     path('manage/', include([
         path('', order_views.manage),
         path('serving_table_list', order_views.getServingTableList),
+        path('serving_order_item_list', order_views.getOrderItemList),
+        path('staff_charge_table', order_views.set_staff_charge_table),
+        path('delive_food', order_views.delive_food),
     ])),
 ]
