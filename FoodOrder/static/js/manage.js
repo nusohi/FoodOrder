@@ -63,17 +63,17 @@ function UpdateOrderItemInfo() {
                 food.status +
                 paras +
                 '>\
-                    <div class="col">订单号：' +
+                    <div class="col">' +
                 food.order_id +
                 '</div>\
-                    <div class="col">名称：' +
+                    <div class="col">' +
                 food.food_name +
                 '</div>\
-                    <div class="col">数量：' +
+                    <div class="col">' +
                 food.food_amount +
                 '</div>\
-                    <div class="col">状态：' +
-                food.status +
+                    <div class="col-3">' +
+                get_food_status_text(food.status) +
                 "</div>\
                     <div class='col-2 p-0'><button class='btn delive-food-btn btn-block btn-danger disabled'>上菜</button></div>\
                 </div>";
@@ -127,7 +127,11 @@ $(".staff-opt-btn")
             .attr("table_id");
         staff_id = $(this).attr("staff_id");
         staff_name = $(this).html();
-        $("#staff-name-in-table-" + table_id).html(staff_name);
+        var same = $("#staff-name-in-table-" + table_id).html() == staff_name;
+        if (same) {
+            bs4pop.notice("无效！");
+            return;
+        }
 
         // 提交到后端
         $.post(
@@ -140,6 +144,7 @@ $(".staff-opt-btn")
                 data = JSON.parse(data);
                 if (data.status == "OK") {
                     bs4pop.notice("成功修改餐桌负责人！");
+                    $("#staff-name-in-table-" + table_id).html(staff_name);
                 } else {
                     bs4pop.notice("操作失败！");
                 }
@@ -152,6 +157,11 @@ var bind_delive_food_btn = function() {
     $(".delive-food-btn")
         .off("click")
         .click(function() {
+            if ($(this).hasClass("disabled")) {
+                bs4pop.notice("已上过此菜！");
+                return;
+            }
+
             var food_item = $(this).parents(".food-item");
             order_id = food_item.attr("order_id");
             food_id = food_item.attr("food_id");
@@ -173,3 +183,8 @@ var bind_delive_food_btn = function() {
             );
         });
 };
+
+function get_food_status_text(status) {
+    var status_text = ["等待后厨接单", "后厨已接单", "等待上菜", "上菜完成"];
+    return status_text[status];
+}
