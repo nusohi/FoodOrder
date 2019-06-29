@@ -10,12 +10,20 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <link rel="stylesheet" href="{% static 'css/FoodSupplier.css'%}">
     <title>后 厨</title>
+    <style>
+        a:hover {
+            text-decoration: none;
+        }
+        .t-h .col{
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="row mx-4 mt-4">
+        <div class="row mx-4 mt-4 t-h">
             <div class="col">订单号</div>
             <div class="col">菜号</div>
             <div class="col">菜名</div>
@@ -26,6 +34,24 @@
         <hr>
         <div id="orders">
             <!-- 动态填充 -->
+        </div>
+
+        <!-- 底部填空区域 -->
+        <div style="height:60px"></div>
+        <!-- 底部导航栏 -->
+        <div class="BottomNavBar NavBar row fixed-bottom border-top"
+            style="height:80px;background-color:#f7f7f7;height:60px;">
+            <div class="col-5 m-auto"></div>
+            <div class="col-4 m-auto">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mr-3">
+                        <a href="/">
+                            <button class="btn btn-success btn-block">返 回</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

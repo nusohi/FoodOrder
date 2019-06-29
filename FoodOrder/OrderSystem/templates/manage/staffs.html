@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <title>员工</title>
     <style>
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -18,15 +21,7 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col">
-                <form action='/manage/staffs' method='POST'>
-                    {{form}}
-                    <input type='submit' value='添加' />
-                </form>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col">
+                <h1>员工</h1>
                 <table class="table">
                     <tr>
                         <th>ID</th>
@@ -41,37 +36,45 @@
                     <tr>
                         <td>{{staff.ID}}</td>
                         <td>{{staff.name}}</td>
-                        <td>{{staff.gender}}</td>
+                        <td>{%if staff.gender == 'male'%}男{%else%}女{%endif%}</td>
                         <td>{{staff.citizenID}}</td>
-                        <td>{{staff.born_date}}</td>
+                        <td>{{staff.born_date|date:'Y-m-d'}}</td>
                         <td>{{staff.phone}}</td>
                         <td><button class="btn btn-sm btn-danger delete-staff" staff_id={{staff.ID}}>删</button></td>
                     </tr>
                     {% endfor %}
                 </table>
-            </div>
-            <!-- 底部填空区域 -->
-            <div style="height:60px"></div>
-            <!-- 底部导航栏 -->
-            <div class="BottomNavBar NavBar row fixed-bottom border-top"
-                style="height:80px;background-color:#f7f7f7;height:60px;">
-                <div class="col-5 m-auto"></div>
-                <div class="col-4 m-auto">
-                    <div class="row">
-                        <div class="col"></div>
-                        <div class="col mr-3">
-                            <a href="/manage">
-                                <button class="btn btn-success btn-block" id="OrderSubmit">返 回</button>
-                            </a>
+
+                <hr>
+                <form class='form-group load-form' action='/manage/staffs' method='POST'>
+                    {{form}}
+                    <input class="btn btn-primary mt-3" type='submit' value='添加' />
+                </form>
+                <!-- 底部填空区域 -->
+                <div style="height:60px"></div>
+                <!-- 底部导航栏 -->
+                <div class="BottomNavBar NavBar row fixed-bottom border-top"
+                    style="height:60px;background-color:#f7f7f7;height:60px;">
+                    <div class="col-5 m-auto"></div>
+                    <div class="col-4 m-auto">
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col mr-3">
+                                <a href="/manage">
+                                    <button class="btn btn-success btn-block" id="OrderSubmit">返 回</button>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
         </div>
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'js/load_form.js' %}"></script>
     <script>
         $(document).ready(function () {
             // 删除

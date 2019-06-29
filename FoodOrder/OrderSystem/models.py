@@ -47,6 +47,7 @@ class OrderItem(models.Model):
         (0, '后厨未接单'), (1, '后厨在准备'), (2, '等待上菜'), (3, '上菜完成')))
     start_cook_time = models.TimeField(null=True)
     end_cook_time = models.TimeField(null=True)
+    comment = models.CharField(max_length=50)
 
     def __str__(self):
         return self.foodID.title + ' in Order ' + str(self.orderID.ID)
@@ -60,7 +61,7 @@ class Staff(models.Model):
         ('male', '男'), ('female', '女')), default='male')
     born_date = models.DateField(null=True)
     phone = models.CharField(max_length=11)
-    address = models.CharField(max_length=50,default='')
+    address = models.CharField(max_length=50, default='')
 
     def __str__(self):
         return self.name

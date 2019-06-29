@@ -18,14 +18,8 @@
             text-decoration: none;
         }
 
-        #entry-button-group {
-            margin-top: 200px;
-        }
-
-        #entry-button-group .btn {
-            height: 160px;
-            font-size: 50px;
-            line-height: 50px;
+        #load-form{
+            height:80px;
         }
     </style>
 </head>
@@ -33,18 +27,18 @@
 <body>
 
     <div class="container">
-        <div class="row mt-3 mb-3">
-            <div class="col-2"></div>
-            <form class='col-8 form-group load-form' action='/manage/tables' method='POST'>
-                {{form}}
-                <input type='submit' value='添加' />
-            </form>
-            <div class="col-2"></div>
-        </div>
-        <div class="row">
+        <div class="row mt-3">
             <div class="col-2"></div>
             <div class="col-8">
+                <h1>餐桌</h1>
                 <table class="table">
+                    <tr>
+                        <th>桌号</th>
+                        <th>桌名</th>
+                        <th>负责员工ID</th>
+                        <th>负责员工姓名</th>
+                        <th></th>
+                    </tr>
                     {% for table in tables %}
                     <tr>
                         <td>{{table.table_id}}</td>
@@ -56,6 +50,12 @@
                     </tr>
                     {% endfor %}
                 </table>
+
+                <hr>
+                <form class='form-group load-form row' action='/manage/tables' method='POST'>
+                    {{form}}
+                    <input class="btn btn-primary mt-3" type='submit' value='添加餐桌' />
+                </form>
             </div>
             <div class="col-2"></div>
         </div>
@@ -70,7 +70,7 @@
                     <div class="col"></div>
                     <div class="col mr-3">
                         <a href="/manage">
-                            <button class="btn btn-success btn-block" id="OrderSubmit">返 回</button>
+                            <button class="btn btn-success btn-block">返 回</button>
                         </a>
                     </div>
                 </div>

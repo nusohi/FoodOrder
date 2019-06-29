@@ -10,29 +10,18 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <title>某某店家</title>
     <style>
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="row mt-3">
-            <div class="col-8">
-                <form action='/manage/foods' method='POST'>
-                    {{food_form}}
-                    <input type='submit' value='添加菜品' />
-                </form>
-            </div>
-            <div class="col-4">
-                <form action='/manage/foods' method='POST'>
-                    {{food_type_form}}
-                    <input type='submit' value='添加种类' />
-                </form>
-            </div>
-        </div>
-
         <div class="row">
-            <div class="col-8">
+            <div class="col-8 mt-3">
+                <h1>菜品</h1>
                 <table class="table">
                     <tr>
                         <th>ID</th>
@@ -41,6 +30,7 @@
                         <th>价格</th>
                         <th>品类ID</th>
                         <th>花费时间</th>
+                        <th></th>
                     </tr>
                     {% for food in foods%}
                     <tr>
@@ -54,9 +44,16 @@
                     </tr>
                     {% endfor %}
                 </table>
+
+                <hr>
+                <form class=" form-group load-form col-8" action='/manage/foods' method='POST'>
+                    {{food_form}}
+                    <input class="btn btn-primary mt-3" type='submit' value='添加菜品' />
+                </form>
             </div>
 
-            <div class="col-4">
+            <div class="col-4 mt-3">
+                <h1>菜品种类</h1>
                 <table class="table">
                     <tr>
                         <th>ID</th>
@@ -71,6 +68,12 @@
                     </tr>
                     {% endfor %}
                 </table>
+
+                <hr>
+                <form class=" form-group load-form col" action='/manage/foods' method='POST'>
+                    {{food_type_form}}
+                    <input class="btn btn-primary mt-3" type='submit' value='添加种类' />
+                </form>
             </div>
         </div>
         <!-- 底部填空区域 -->
@@ -84,7 +87,7 @@
                     <div class="col"></div>
                     <div class="col mr-3">
                         <a href="/manage">
-                            <button class="btn btn-success btn-block" id="OrderSubmit">返 回</button>
+                            <button class="btn btn-success btn-block">返 回</button>
                         </a>
                     </div>
                 </div>
@@ -93,6 +96,7 @@
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'js/load_form.js' %}"></script>
     <script>
         // 删除
         $(".delete-food").off("click").click(function () {

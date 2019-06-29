@@ -39,7 +39,7 @@ function UpdateTableStatus() {
         });
 
         // 提示信息
-        bs4pop.notice("已刷新餐桌负责状态表！",{position: 'topright'});
+        bs4pop.notice("已刷新餐桌负责状态表！",{position: 'bottomright'});
     });
 }
 
@@ -85,7 +85,7 @@ function UpdateOrderItemInfo() {
 
         UpdateFoodServeStatus();
         // 提示信息
-        bs4pop.notice("已刷新上菜信息！",{position: 'topright'});
+        bs4pop.notice("已刷新上菜信息！",{position: 'bottomright'});
     });
 }
 

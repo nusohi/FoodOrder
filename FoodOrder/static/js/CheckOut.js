@@ -14,17 +14,19 @@ $("#check-out-btn")
         post_data = {
             order_list: order_list
         };
-        console.log(post_data);
-        $.post("\\order\\checkout", post_data, function(data) {
-            data = JSON.parse(data);
-            if (data.status == "OK") {
-                window.alert("支付成功！点击确定返回主页.");
-                $(location).attr("href", "/");
-                console.log("支付成功！");
-            } else if (data.status == "NO_PAY") {
-                console.log("支付失败，is_pay无效.");
-            } else if (data.status == "ALREADY_PAY") {
-                console.log("支付失败，已经支付！");
-            }
-        });
+        
+        if(window.confirm("确认已支付！")){
+            $.post("\\order\\checkout", post_data, function(data) {
+                data = JSON.parse(data);
+                if (data.status == "OK") {
+                    window.alert("支付成功！点击确定返回主页.");
+                    $(location).attr("href", "/");
+                    console.log("支付成功！");
+                } else if (data.status == "NO_PAY") {
+                    console.log("支付失败，is_pay无效.");
+                } else if (data.status == "ALREADY_PAY") {
+                    console.log("支付失败，已经支付！");
+                }
+            });
+        }
     });

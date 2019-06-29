@@ -64,6 +64,7 @@ def OrderHome(request):
         }))
 
 
+# 账单详情页
 def QueryOrder(request, order_id):
     try:
         order = Order.objects.get(pk=order_id)

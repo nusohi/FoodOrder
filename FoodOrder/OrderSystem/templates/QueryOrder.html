@@ -22,17 +22,31 @@
 </head>
 
 <body>
-    <div class="" id="order" order_id={{order.ID}}>订单：{{order}}</div>
-    <div class="">订单创建时间：{{order.create_time}}</div>
-    <div class="">订单支付状态：{{order.is_pay}}</div>
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col" id="order" order_id={{order.ID}}>订单编号：
+                <span class="badge {%if order.is_pay%}badge-success{%else%}badge-danger{%endif%}">{{order.ID}}</span>
+            </div>
+            <div class="col">创建时间：{{order.create_time|date:'Y-m-d H:i:s'}}</div>
+            <div class="col">支付时间：{{order.pay_time|date:'Y-m-d H:i:s'}}</div>
+            <div class="col">支付状态：{% if order.is_pay %}已支付{%else%}未支付{%endif%}</div>
+        </div>
 
-    {% for food in foodList %}
-    <div class="">-----------------------</div>
-    <div class="">Food编号：{{food.ID}}</div>
-    <div class="">Food名称：{{food.title}}</div>
-    <div class="">Food数量：{{food.amount}}</div>
-    <div class="">Food总价：{{food.sum_price}}</div>
-    {% endfor %}
+        <hr>
+        <div class="row">
+            {% for food in foodList %}
+            <div class="col-2 ml-3 mt-3 card card-body">
+                <div class="">编号：{{food.ID}}</div>
+                <div class="">名称：{{food.title}}</div> 
+                <div class="">数量：{{food.amount}}</div>
+                <div class="">总价：{{food.sum_price}}</div>
+            </div>
+
+            {% endfor %}
+        </div>
+
+    </div>
+
 
 
     <!-- 底部填空区域 -->
@@ -47,9 +61,13 @@
                 <div class="col">
                     <a href="/" class="btn btn-light btn-block" id="returnBtn">返回主页</a>
                 </div>
+                {% if not order.is_pay %}
                 <div class="col mr-3">
                     <button class="btn btn-success btn-block" id="check-out-btn">支付订单</button>
                 </div>
+                {% else%}
+                <div class="col mr-3"></div>
+                {% endif %}
             </div>
         </div>
     </div>
