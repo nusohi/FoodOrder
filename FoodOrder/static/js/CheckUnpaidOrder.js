@@ -70,7 +70,7 @@ $("#OrderSubmit")
                 if (data.status == "OK") {
                     bs4pop.notice("支付成功！即将返回主页.");
                     setTimeout(function() {
-                        $(location).attr("href", "/");
+                        $(location).attr("href", "/manage/");
                     }, 2000);
                 } else if (data.status == "NO_PAY") {
                     bs4pop.notice("支付失败！");

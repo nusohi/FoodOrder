@@ -35,5 +35,6 @@ urlpatterns = [
         path('staffs', order_views.staffs),
         path('tables', order_views.tables),
         path('foods', order_views.foods),
+        path('dark', order_views.dark),
     ])),
 ]

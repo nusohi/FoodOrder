@@ -51,6 +51,7 @@
                         <td>{{table.table_name}}</td>
                         <td>{{table.staff_id}}</td>
                         <td>{{table.staff_name}}</td>
+                        <td><button class="btn btn-sm btn-danger delete-table" table_id={{table.table_id}}>删</button></td>
                     </tr>
                     {% endfor %}
                 </table>
@@ -62,7 +63,21 @@
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
     <script src="{% static 'js/load_form.js' %}"></script>
     <script>
-        
+        $(document).ready(function(){
+            // 删除
+            $(".delete-table").off("click").click(function () {
+                id = $(this).attr("table_id")
+    
+                if (window.confirm("确认删除？")) {
+                    $.post('/manage/dark', post_data = {
+                        double: false,
+                        table: 'staff_table',
+                        id: id,
+                    })
+                }
+                location.reload()
+            })
+        })
     </script>
 
 </body>

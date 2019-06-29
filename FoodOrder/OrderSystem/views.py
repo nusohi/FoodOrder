@@ -42,6 +42,8 @@ def OrderHome(request):
             curFood = Food.objects.get(pk=food['id'])
             price = curFood.price
             sum_price = price * food['amount']
+            curFood.amount -= food['amount']
+            curFood.save()
 
             food_amount += food['amount']
             total_price += sum_price
@@ -308,6 +310,7 @@ def dictfetchall(cursor):
 #
 ###############################################################
 
+
 def orders(request):
     orders = Order.objects.all()
     return render(request, 'manage/orders.html', {
@@ -317,12 +320,29 @@ def orders(request):
 
 @csrf_exempt
 def staffs(request):
-    form = forms.StaffForm()
-    print(form)
-    return render(request, 'manage/staffs.html', {
-        'form': form,
-        # 'staffs': staffs,
-    })
+    if request.method=="GET":
+        form = forms.StaffForm()
+        staffs = Staff.objects.all()
+        return render(request, 'manage/staffs.html', {
+            'form': form,
+            'staffs': staffs,
+        })
+    elif request.method == "POST":
+        form_back = forms.StaffForm(request.POST)
+        if form_back.is_valid():
+            form_back.save()
+            return HttpResponse(json.dumps({
+                'status': 'OK',
+            }))
+        else:
+            print(form_back.errors.as_data())
+            print(form_back.errors.as_json())
+            print(form_back.errors.as_text())
+            print(form_back.errors.as_ul())
+            return HttpResponse(json.dumps({
+                'status': 'FAIL',
+            }))
+
 
 
 @csrf_exempt
@@ -377,16 +397,67 @@ def tables(request):
             return HttpResponse(json.dumps({
                 'status': 'FAIL',
             }))
-            pass
 
 
+@csrf_exempt
 def foods(request):
     if request.method == "GET":
-        form = forms.FoodtypeForm()
+        foods = Food.objects.all()
+        food_types = Foodtype.objects.all()
+        food_form = forms.FoodForm()
+        food_type_form = forms.FoodtypeForm()
         return render(request, 'manage/foods.html', {
-            'form': form,
-            # 'foods': foods,
-            # 'food_types': food_types,
+            'food_form': food_form,
+            'food_type_form': food_type_form,
+            'foods': foods,
+            'food_types': food_types,
         })
     elif request.method == "POST":
-        pass
+        form_food = forms.FoodForm(request.POST)
+        form_food_type = forms.FoodtypeForm(request.POST)
+
+        if form_food.is_valid():
+            data = form_food.cleaned_data
+            form_food.save()
+            return HttpResponse(json.dumps({
+                'status': 'OK',
+            }))
+        elif form_food_type.is_valid():
+            form_food_type.save()
+            return HttpResponse(json.dumps({
+                'status': 'OK',
+            }))
+        else:
+            return HttpResponse(json.dumps({
+                'status': 'FAIL',
+            }))
+
+
+@csrf_exempt
+def dark(request):
+    if request.method == "POST":
+        target = request.POST
+
+        table = target['table']
+        SQL = ''
+        if target['double'] == 'false':
+            ID = target['id']
+            SQL += f'delete from OrderSystem_{table} where ID={ID}'
+        elif target['double'] == 'true':
+            foodID_id = target['foodID_id']
+            orderID_id = target['orderID_id']
+            SQL += f'delete from OrderSystem_{table} where foodID_id={foodID_id} and orderID_id={orderID_id}'
+
+        print('========================================================================')
+        print(SQL)
+        print('========================================================================')
+        try:
+            with connection.cursor() as cursor:
+                cursor.execute(SQL)
+            return HttpResponse(json.dumps({
+                'status': 'OK',
+            }))
+        except:
+            return HttpResponse(json.dumps({
+                'status': 'FAIL',
+            }))

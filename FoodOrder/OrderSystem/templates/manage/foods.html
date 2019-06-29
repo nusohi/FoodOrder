@@ -10,43 +10,106 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <title>某某店家</title>
     <style>
-        body {
-            background-color: #f7f7f7;
-        }
-
-        a:hover {
-            text-decoration: none;
-        }
-
-        #entry-button-group {
-            margin-top: 200px;
-        }
-
-        #entry-button-group .btn {
-            height: 160px;
-            font-size: 50px;
-            line-height: 50px;
-        }
     </style>
 </head>
 
 <body>
 
     <div class="container">
-        <div class="row">
-            <div class="col-2"></div>
+        <div class="row mt-3">
             <div class="col-8">
                 <form action='/manage/foods' method='POST'>
-                    {{form}}
-                    <input type='submit' value='提交' />
+                    {{food_form}}
+                    <input type='submit' value='添加菜品' />
                 </form>
             </div>
-            <div class="col-2"></div>
+            <div class="col-4">
+                <form action='/manage/foods' method='POST'>
+                    {{food_type_form}}
+                    <input type='submit' value='添加种类' />
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>名字</th>
+                        <th>余量</th>
+                        <th>价格</th>
+                        <th>品类ID</th>
+                        <th>花费时间</th>
+                    </tr>
+                    {% for food in foods%}
+                    <tr>
+                        <td>{{food.ID}}</td>
+                        <td>{{food.title}}</td>
+                        <td>{{food.amount}}</td>
+                        <td>{{food.price}}</td>
+                        <td>{{food.foodType_id}}</td>
+                        <td>{{food.cost_time}}</td>
+                        <td><button class="btn btn-sm btn-danger delete-food" food_id={{food.ID}}>删</button></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="col-4">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>名字</th>
+                    </tr>
+                    {% for food_type in food_types%}
+                    <tr>
+                        <td>{{food_type.ID}}</td>
+                        <td>{{food_type.name}}</td>
+                        <td><button class="btn btn-sm btn-danger delete-food-type" food_type_id={{food_type.ID}}>删</button></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        // 删除
+        $(".delete-food").off("click").click(function () {
+            id = $(this).attr("food_id")
 
+            if(window.confirm("确认删除？")){
+                $.post('/manage/dark', post_data = {
+                    double: false,
+                    table: 'food',
+                    id: id,
+                })
+            }
+            location.reload()
+        })
+
+        $(".delete-food-type").off("click").click(function () {
+            id = $(this).attr("food_type_id")
+
+            if(window.confirm("确认删除？")){
+                $.post('/manage/dark', post_data = {
+                    double: false,
+                    table: 'foodtype',
+                    id: id,
+                },function(data){
+                    data=JSON.parse(data)
+                    if(data.status=="OK"){
+                        window.alert("成功")
+                    }else{
+                        window.alert("删除失败！")
+                    }
+                })
+            }
+            location.reload()
+        })
+    </script>
 </body>
 
 </html>

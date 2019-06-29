@@ -1,6 +1,6 @@
 $(document).ready(function() {
     UpdateOrders();
-    // var update_orders = setInterval(UpdateOrders, 10 * 1000);
+    var update_orders = setInterval(UpdateOrders, 10 * 1000);
 });
 
 function UpdateOrders() {
@@ -56,6 +56,7 @@ function BIND() {
                 $(this)
                     .next()
                     .removeClass("disabled");
+                location.reload()
             } else {
             }
         });
@@ -77,6 +78,7 @@ function BIND() {
                 );
                 // 切换按钮状态
                 $(this).addClass("disabled");
+                location.reload()
             } else {
             }
         });

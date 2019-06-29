@@ -39,7 +39,7 @@ function UpdateTableStatus() {
         });
 
         // 提示信息
-        bs4pop.notice("已刷新餐桌负责状态表！");
+        bs4pop.notice("已刷新餐桌负责状态表！",{position: 'topright'});
     });
 }
 
@@ -85,7 +85,7 @@ function UpdateOrderItemInfo() {
 
         UpdateFoodServeStatus();
         // 提示信息
-        bs4pop.notice("已刷新上菜信息！");
+        bs4pop.notice("已刷新上菜信息！",{position: 'topright'});
     });
 }
 
@@ -184,7 +184,7 @@ var bind_delive_food_btn = function() {
         });
 };
 
-// 添加餐桌
+
 
 
 function get_food_status_text(status) {

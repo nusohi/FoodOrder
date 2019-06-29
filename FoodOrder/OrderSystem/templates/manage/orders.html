@@ -1,0 +1,81 @@
+{% load static from staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
+    <title>订单</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+
+        #entry-button-group {
+            margin-top: 200px;
+        }
+
+        #entry-button-group .btn {
+            height: 160px;
+            font-size: 50px;
+            line-height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <tr>
+                        <th>订单号</th>
+                        <th>创建时间</th>
+                        <th>支付时间</th>
+                        <th>桌号</th>
+                        <th>食物总数</th>
+                        <th>总价</th>
+                        <th>员工ID</th>
+                    </tr>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{order.ID}}</td>
+                        <td>{{order.create_time|date:'Y-m-d H:i:s'}}</td>
+                        <td>{{order.pay_time|date:'Y-m-d H:i:s'}}</td>
+                        <td>{{order.table_id}}</td>
+                        <td>{{order.food_amount}}</td>
+                        <td>{{order.total_price}}</td>
+                        <td>{{order.staff_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部填空区域 -->
+    <div style="height:80px"></div>
+    <!-- 底部导航栏 -->
+    <div class="BottomNavBar NavBar row fixed-bottom border-top">
+        <div class="col-10 m-auto"></div>
+        <div class="col">
+            <a href="/manage/">
+                <button class="btn btn-light btn-block">返回</button>
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+
+</body>
+
+</html>
