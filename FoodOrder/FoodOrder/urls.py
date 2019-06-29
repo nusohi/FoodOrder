@@ -22,11 +22,18 @@ urlpatterns = [
     path('', views.home),
     path('admin/', admin.site.urls),
     path('order/', include('OrderSystem.urls')),
+    path('food_supplier/', order_views.food_supplier),
+    path('micro', views.micro),
     path('manage/', include([
         path('', order_views.manage),
         path('serving_table_list', order_views.getServingTableList),
         path('serving_order_item_list', order_views.getOrderItemList),
         path('staff_charge_table', order_views.set_staff_charge_table),
         path('delive_food', order_views.delive_food),
+        path('cook', order_views.cook),
+        path('orders', order_views.orders),
+        path('staffs', order_views.staffs),
+        path('tables', order_views.tables),
+        path('foods', order_views.foods),
     ])),
 ]

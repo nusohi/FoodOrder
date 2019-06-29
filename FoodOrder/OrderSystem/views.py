@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Food, Foodtype, Order, OrderItem, Staff, Staff_Table
 from django.views.decorators.csrf import csrf_exempt
 from django.db import connection
+from . import forms
 import json
 import datetime
 
@@ -260,6 +261,38 @@ def delive_food(request):
             }))
 
 
+# 后厨
+def food_supplier(request):
+    return render(request, 'FoodSupplier.html')
+
+
+# 后厨接口 接单or呼叫上菜
+@csrf_exempt
+def cook(request):
+    if request.method == "POST":
+        OP = request.POST.get("OP")
+        order_id = request.POST.get("order_id")
+        food_id = request.POST.get("food_id")
+
+        orderItem = OrderItem.objects.filter(
+            orderID_id=order_id, foodID_id=food_id)
+
+        target_status = 1 if OP == "take_order" else 2
+
+        if(OP == "take_order"):
+            orderItem.update(status=1)
+            orderItem.update(start_cook_time=datetime.datetime.now())
+        else:
+            orderItem.update(status=2)
+            orderItem.update(end_cook_time=datetime.datetime.now())
+
+        orderItem.save()
+
+        return HttpResponse(json.dumps({
+            'status': 'OK',
+        }))
+
+
 def dictfetchall(cursor):
     '''辅助函数 数据库查询结果转换成 json/dict'''
     columns = [col[0] for col in cursor.description]
@@ -267,3 +300,93 @@ def dictfetchall(cursor):
         dict(zip(columns, row))
         for row in cursor.fetchall()
     ]
+
+
+###############################################################
+#
+#    管理
+#
+###############################################################
+
+def orders(request):
+    orders = Order.objects.all()
+    return render(request, 'manage/orders.html', {
+        'orders': orders,
+    })
+
+
+@csrf_exempt
+def staffs(request):
+    form = forms.StaffForm()
+    print(form)
+    return render(request, 'manage/staffs.html', {
+        'form': form,
+        # 'staffs': staffs,
+    })
+
+
+@csrf_exempt
+def tables(request):
+    if request.method == "GET":
+        form = forms.Staff_TableForm()
+        tables = []
+        staffs = []
+        with connection.cursor() as cursor:
+            SELECT_COL = ' distinct {0}_staff_table.ID table_id '
+            SELECT_COL += ', {0}_staff_table.name table_name '
+            SELECT_COL += ', {0}_staff.ID staff_id '
+            SELECT_COL += ', {0}_staff.name staff_name '
+            SELECT_COL = SELECT_COL.format('OrderSystem')
+
+            SELECT_FROM = '{0}_staff_table, {0}_staff '
+            SELECT_FROM = SELECT_FROM.format('OrderSystem')
+
+            SELECT_WHERE = '{0}_staff.ID = {0}_staff_table.staff_id '
+            SELECT_WHERE = SELECT_WHERE.format('OrderSystem')
+
+            SELECT_SQL = f'select {SELECT_COL} from {SELECT_FROM} where {SELECT_WHERE}'
+            cursor.execute(SELECT_SQL)
+
+            tables = dictfetchall(cursor)
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                'select ID staff_id, name staff_name from OrderSystem_staff;')
+            staffs = dictfetchall(cursor)
+
+        print(tables)
+
+        return render(request, 'manage/tables.html', {
+            'form': form,
+            'tables': tables,
+            'staffs': staffs,
+        })
+    elif request.method == "POST":
+        form_back = forms.Staff_TableForm(request.POST)
+        if form_back.is_valid():
+            data = form_back.cleaned_data
+            form_back.save()
+            return HttpResponse(json.dumps({
+                'status': 'OK',
+            }))
+        else:
+            print(form_back.errors.as_data())
+            print(form_back.errors.as_json())
+            print(form_back.errors.as_text())
+            print(form_back.errors.as_ul())
+            return HttpResponse(json.dumps({
+                'status': 'FAIL',
+            }))
+            pass
+
+
+def foods(request):
+    if request.method == "GET":
+        form = forms.FoodtypeForm()
+        return render(request, 'manage/foods.html', {
+            'form': form,
+            # 'foods': foods,
+            # 'food_types': food_types,
+        })
+    elif request.method == "POST":
+        pass

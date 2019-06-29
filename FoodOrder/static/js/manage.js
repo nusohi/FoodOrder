@@ -184,6 +184,9 @@ var bind_delive_food_btn = function() {
         });
 };
 
+// 添加餐桌
+
+
 function get_food_status_text(status) {
     var status_text = ["等待后厨接单", "后厨已接单", "等待上菜", "上菜完成"];
     return status_text[status];

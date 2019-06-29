@@ -8,12 +8,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
-    <title>某某店家</title>
+    <title>餐桌表</title>
     <style>
-        body{
+        body {
             background-color: #f7f7f7;
         }
-        a:hover{
+
+        a:hover {
             text-decoration: none;
         }
 
@@ -32,33 +33,37 @@
 <body>
 
     <div class="container">
+        <div class="row mt-3 mb-3">
+            <div class="col-2"></div>
+            <form class='col-8 form-group load-form' action='/manage/tables' method='POST'>
+                {{form}}
+                <input type='submit' value='添加' />
+            </form>
+            <div class="col-2"></div>
+        </div>
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
-                <div class="row" id="entry-button-group">
-                    <div class="col">
-                        <a href="/order">
-                            <button class="btn btn-block btn-outline-primary">点 菜</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="/food_supplier">
-                            <button class="btn btn-block btn-outline-success">后 厨</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="/manage">
-                            <button class="btn btn-block btn-outline-danger">管 理</button>
-                        </a>
-                    </div>
-                </div>
+                <table class="table">
+                    {% for table in tables %}
+                    <tr>
+                        <td>{{table.table_id}}</td>
+                        <td>{{table.table_name}}</td>
+                        <td>{{table.staff_id}}</td>
+                        <td>{{table.staff_name}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
             </div>
             <div class="col-2"></div>
         </div>
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
-    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/load_form.js' %}"></script>
+    <script>
+        
+    </script>
 
 </body>
 

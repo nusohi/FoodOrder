@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.min.css'%}">
     <title>某某店家</title>
     <style>
-        body{
+        body {
             background-color: #f7f7f7;
         }
-        a:hover{
+
+        a:hover {
             text-decoration: none;
         }
 
@@ -35,23 +36,10 @@
         <div class="row">
             <div class="col-2"></div>
             <div class="col-8">
-                <div class="row" id="entry-button-group">
-                    <div class="col">
-                        <a href="/order">
-                            <button class="btn btn-block btn-outline-primary">点 菜</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="/food_supplier">
-                            <button class="btn btn-block btn-outline-success">后 厨</button>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="/manage">
-                            <button class="btn btn-block btn-outline-danger">管 理</button>
-                        </a>
-                    </div>
-                </div>
+                <form action='/manage/staffs' method='POST'>
+                    {{form}}
+                    <input type='submit' value='提交' />
+                </form>
             </div>
             <div class="col-2"></div>
         </div>

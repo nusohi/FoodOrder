@@ -21,7 +21,10 @@
         <div class="row mt-3">
             <!-- 左侧 餐桌负责状态表 -->
             <table class="col-4 table text-center" id="table-info-table">
-                <caption>餐桌负责状态表</caption>
+                <caption>
+                    餐桌负责状态表
+                    <button class="btn btn-success btn-sm" id='add-table'>添加</button>
+                </caption>
                 <tr>
                     <th>桌号</th>
                     <th>桌名</th>
@@ -44,13 +47,19 @@
                 <!-- 顶部的几个按钮 -->
                 <div class="row" id="entry-button-group">
                     <div class="col">
-                        <a href=""><button class="btn btn-block btn-outline-primary">订 单</button></a>
+                        <a href="/order/check"><button class="btn btn-block btn-outline-primary">结 账</button></a>
                     </div>
                     <div class="col">
-                        <a href=""><button class="btn btn-block btn-outline-success">餐桌负责人安排</button></a>
+                        <a href="/manage/orders"><button class="btn btn-block btn-outline-success">订 单</button></a>
                     </div>
                     <div class="col">
-                        <a href=""><button class="btn btn-block btn-outline-danger">员工信息</button></a>
+                        <a href="/manage/staffs"><button class="btn btn-block btn-outline-danger">员 工</button></a>
+                    </div>
+                    <div class="col">
+                        <a href="/manage/tables"><button class="btn btn-block btn-outline-danger">餐 桌</button></a>
+                    </div>
+                    <div class="col">
+                        <a href="/manage/foods"><button class="btn btn-block btn-outline-danger">菜 品</button></a>
                     </div>
                 </div>
                 <div class="tab-content">
@@ -62,6 +71,8 @@
                             <div class="col-2">
                                 桌号：{{tableInfo.table_id}}
                             </div>
+                            <button class="col-1 btn btn-sm btn-danger">删除</button>
+                            <div class="col-1"></div>
                             <div class="col-4">
                                 负责人：
                                 <span class="badge badge-primary badge-pill"
@@ -92,15 +103,15 @@
                             <div class='col-2'></div>
                         </div>
 
-                    <div class="order-item-table">
-                        <!-- 动态填充 -->
+                        <div class="order-item-table">
+                            <!-- 动态填充 -->
 
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
     </div>
 
     <script src="https://cdn.staticfile.org/jquery/3.4.0/jquery.min.js"></script>
