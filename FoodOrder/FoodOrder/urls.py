@@ -25,7 +25,7 @@ urlpatterns = [
     path('accounts/', include('Accounts.urls')),
 
     path('food_supplier/', order_views.food_supplier),
-    path('micro', views.micro),
+    path('micro/', views.micro),
     path('manage/', include([
         path('', order_views.manage),
         path('serving_table_list', order_views.getServingTableList),

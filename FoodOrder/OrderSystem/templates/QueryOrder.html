@@ -18,30 +18,36 @@
         #returnBtn:hover {
             color: #2c2c2c;
         }
+
+        .time {
+            font-size: 13px;
+            color: #c2c2c2;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
         <div class="row mt-5">
-            <div class="col" id="order" order_id={{order.ID}}>订单编号：
+            <div class="col-2" id="order" order_id={{order.ID}}>订单编号：
                 <span class="badge {%if order.is_pay%}badge-success{%else%}badge-danger{%endif%}">{{order.ID}}</span>
             </div>
             <div class="col">创建时间：{{order.create_time|date:'Y-m-d H:i:s'}}</div>
             <div class="col">支付时间：{{order.pay_time|date:'Y-m-d H:i:s'}}</div>
-            <div class="col">支付状态：{% if order.is_pay %}已支付{%else%}未支付{%endif%}</div>
+            <div class="col-2">支付状态：{% if order.is_pay %}已支付{%else%}未支付{%endif%}</div>
         </div>
 
         <hr>
         <div class="row">
             {% for food in foodList %}
             <div class="col-2 ml-3 mt-3 card card-body">
-                <div class="">编号：{{food.ID}}</div>
-                <div class="">名称：{{food.title}}</div> 
+                <div class="">
+                    <h5>{{food.title}}</h5>
+                </div>
                 <div class="">数量：{{food.amount}}</div>
                 <div class="">总价：{{food.sum_price}}</div>
-                <div class="">接单时间：{{food.start_cook_time|date:'H:i:s'}}</div>
-                <div class="">完成时间：{{food.end_cook_time|date:'H:i:s'}}</div>
+                <div class="time">接单时间：{{food.start_cook_time|date:'H:i:s'}}</div>
+                <div class="time">完成时间：{{food.end_cook_time|date:'H:i:s'}}</div>
             </div>
 
             {% endfor %}
