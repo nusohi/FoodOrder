@@ -31,6 +31,10 @@ function UpdateOrders() {
             $("#orders").append(node);
             BIND(); // 重新绑定
         });
+
+        if(orders.length==0){
+            $("#orders").append('<h3>暂无新订单</h3>');
+        }
     });
 }
 

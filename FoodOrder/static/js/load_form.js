@@ -15,6 +15,7 @@ $(document).ready(function() {
             $(this).addClass("ml-2");
             $(this).css("font-size", "20px");
             $(this).css("color", "#8a8a8a");
+            $(this).css("display", "block");
             var raw = $(this).html();
             $(this).html(ChangeLabel(raw));
         });
@@ -34,7 +35,10 @@ function ChangeLabel(label) {
         "Staff:": "员工",
         "Amount:": "数量",
         "Cost time:": "大概耗时",
-        "FoodType:": "菜品种类"
+        "FoodType:": "菜品种类",
+        "Username:": "用户名:",
+        "Password:": "密码:",
+        'Password confirmation:':'再次输入密码:'
     };
     if (labels[label] != undefined) {
         return labels[label];

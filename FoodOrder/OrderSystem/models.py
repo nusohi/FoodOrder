@@ -31,6 +31,7 @@ class Order(models.Model):
     food_amount = models.IntegerField(default=0)
     total_price = models.FloatField(default=0)
     table_id = models.IntegerField(default=0)
+    comment = models.CharField(max_length=50, default='')
     staff = models.ForeignKey(
         'Staff', on_delete=models.DO_NOTHING)     # 当时负责的员工
 
@@ -40,7 +41,7 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     orderID = models.ForeignKey('Order', on_delete=models.CASCADE)
-    foodID = models.ForeignKey('Food', null=True, on_delete=models.SET_NULL)
+    foodID = models.ForeignKey('Food', on_delete=models.DO_NOTHING)
     amount = models.IntegerField(default=1)
     sum_price = models.FloatField(default=0)
     status = models.IntegerField(default=0, choices=(   # 0-后厨未接单  1-后厨在准备 2-等待上菜 3-上菜完成

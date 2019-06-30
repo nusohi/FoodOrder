@@ -19,29 +19,38 @@
 
 
         <div class="row mt-3">
-            <!-- 左侧 餐桌负责状态表 -->
-            <table class="col-4 table text-center" id="table-info-table">
-                <caption>
-                    餐桌负责状态表
-                    <!-- <button class="btn btn-success btn-sm" id='add-table'>添加</button> -->
-                </caption>
-                <tr>
-                    <th>桌号</th>
-                    <th>桌名</th>
-                    <!-- <th>负责人</th> -->
-                    <th>状态</th>
-                </tr>
-                {% for tableInfo in tableInfoList %}
-                <tr class="" id="table-{{tableInfo.table_id}}" data-toggle="pill"
-                    href="#table-{{tableInfo.table_id}}-content" role="tab" table_id={{tableInfo.table_id}}
-                    staff_id={{tableInfo.staff_id}}>
-                    <td>{{tableInfo.table_id}}</td>
-                    <td>{{tableInfo.table_name}}</td>
-                    <!-- <td>{{tableInfo.staff_name}}</td> -->
-                    <td></td>
-                </tr>
-                {% endfor %}
-            </table>
+            <!-- 左侧 餐桌负责状态表 + Log Out -->
+            <div class="col-4">
+                <div class="row ml-1"><h2>{{user.username}}</h2></div>
+                <div class="row">
+                    <form class="col" action="/accounts/signout/" method="POST">
+                        <a href="/order/check"><button class="btn btn-block btn-danger">退出登陆</button></a>
+                    </form>
+                    <div class="col"><a href="/accounts/signup/" class="btn btn-block btn-primary">注  册</a></div>
+                </div>
+                <table class="table text-center mt-3" id="table-info-table">
+                    <caption>
+                        餐桌负责状态表
+                        <!-- <button class="btn btn-success btn-sm" id='add-table'>添加</button> -->
+                    </caption>
+                    <tr>
+                        <th>桌号</th>
+                        <th>桌名</th>
+                        <!-- <th>负责人</th> -->
+                        <th>状态</th>
+                    </tr>
+                    {% for tableInfo in tableInfoList %}
+                    <tr class="" id="table-{{tableInfo.table_id}}" data-toggle="pill"
+                        href="#table-{{tableInfo.table_id}}-content" role="tab" table_id={{tableInfo.table_id}}
+                        staff_id={{tableInfo.staff_id}}>
+                        <td>{{tableInfo.table_id}}</td>
+                        <td>{{tableInfo.table_name}}</td>
+                        <!-- <td>{{tableInfo.staff_name}}</td> -->
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
             <!-- 右侧 区域 -->
             <div class="col ml-1">
                 <!-- 顶部的几个按钮 -->
@@ -71,11 +80,10 @@
                         id="table-{{tableInfo.table_id}}-content" role="tabpanel">
                         <hr>
                         <h4 class="row">
-                            <div class="col-2">
+                            <div class="col-4">
                                 桌号：{{tableInfo.table_id}}
                             </div>
                             <!-- <button class="col-1 btn btn-sm btn-danger">删除</button> -->
-                            <div class="col-1"></div>
                             <div class="col-4">
                                 负责人：
                                 <span class="badge badge-primary badge-pill"

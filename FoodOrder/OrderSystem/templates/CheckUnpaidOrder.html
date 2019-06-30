@@ -26,8 +26,8 @@
                     <div class="col ml-1 list-group-item order" order_id={{order.ID}} order_price={{order.total_price}}>
                         <a href="/order/q{{order.ID}}" target="blank">
                             <div class="row">
-                                <div class="col-4">{{order.create_time|date:"Y-m-d H:i"}}</div>
-                                <div class="col-5 text-center">桌号：{{order.table_id}}</div>
+                                <div class="col-5">{{order.create_time|date:"Y-m-d H:i"}}</div>
+                                <div class="col-4 text-center">桌号：{{order.table_id}}</div>
                                 <div class="col-3 price_badge text-right">
                                     <h4><span class="badge badge-danger badge-pill">￥ {{order.total_price}}</span></h4>
                                 </div>

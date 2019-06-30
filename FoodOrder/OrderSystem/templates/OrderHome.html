@@ -19,7 +19,7 @@
         <!-- 主区域 -->
         <div class="row">
             <!-- 左侧订单信息区域 -->
-            <div class="col-4" style="min-width: 400px;">
+            <div class="col-4" style="min-width: 260px;">
                 <div class="card">
                     <ul class="list-group" id="OrderList">
                         <!-- 订单明细 一条商品记录 -->
@@ -35,6 +35,8 @@
                         <div class="nav flex-column nav-pills" id="foodTypeTab" role="tablist"
                             aria-orientation="vertical">
 
+                            <a class="nav-link" id="v-pills-tab-foodType-all" data-toggle="pill"
+                                href="#v-pills-content-foodType-all" role="tab">全部</a>
                             {% for foodType in foodTypeList %}
                             <a class="nav-link" id="v-pills-tab-foodType-{{foodType.ID}}" data-toggle="pill"
                                 href="#v-pills-content-foodType-{{foodType.ID}}" role="tab">{{foodType.name}}</a>
@@ -45,13 +47,32 @@
                     <!-- 商品卡片信息 -->
                     <div class="col-10">
                         <div class="tab-content" id="foodTypeTabContent">
+                            <div class="tab-pane fade" id="v-pills-content-foodType-all" role="tabpanel">
+                                <div class="row">
+                                    {% for food in foodList %}
+                                    <div class="col-3  mb-1 p-1">
+                                        <a class="FoodItem" href="#">
+                                            <div class="card FoodCard">
+                                                <div class="card-body" foodID={{food.ID}}>
+                                                    <h5 class="card-title">{{food.title}}</h5>
+                                                    <span class="FoodAmount text-left">{{food.amount}}</span>
+                                                    <span
+                                                        class="FoodPrice text-right float-right">￥{{food.price}}</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
                             {% for foodType in foodTypeList %}
                             <div class="tab-pane fade" id="v-pills-content-foodType-{{foodType.ID}}" role="tabpanel">
                                 <div class="row">
 
                                     {% for food in foodList %}
                                     {% if food.foodType.ID == foodType.ID %}
-                                    <div class="col-md-3 col-xs-4 mb-3">
+                                    <div class="col-3 mb-1 p-1">
                                         <a class="FoodItem" href="#">
                                             <div class="card FoodCard">
                                                 <div class="card-body" foodID={{food.ID}}>

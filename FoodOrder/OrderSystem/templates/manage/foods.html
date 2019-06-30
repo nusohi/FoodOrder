@@ -46,9 +46,9 @@
                 </table>
 
                 <hr>
-                <form class=" form-group load-form col-8" action='/manage/foods' method='POST'>
+                <form class=" form-group load-form col-8" target="_blank" action='/manage/foods' method='POST'>
                     {{food_form}}
-                    <input class="btn btn-primary mt-3" type='submit' value='添加菜品' />
+                    <input class="btn btn-primary mt-3 reload" type='submit' value='添加菜品' />
                 </form>
             </div>
 
@@ -70,9 +70,9 @@
                 </table>
 
                 <hr>
-                <form class=" form-group load-form col" action='/manage/foods' method='POST'>
+                <form class=" form-group load-form col" target="_blank" action='/manage/foods' method='POST'>
                     {{food_type_form}}
-                    <input class="btn btn-primary mt-3" type='submit' value='添加种类' />
+                    <input class="btn btn-primary mt-3 reload" type='submit' value='添加种类' />
                 </form>
             </div>
         </div>
@@ -130,6 +130,12 @@
                 })
             }
             location.reload()
+        })
+        
+        $(".reload").off("click").click(function () {
+            setTimeout(2000, function () {
+                location.reload()
+            })
         })
     </script>
 </body>

@@ -108,7 +108,24 @@ $(document).on("click", ".nav-link", function() {
                 bs4pop.notice("请选择桌号！", { type: "danger" });
                 return;
             }
-            
+
+            // 数量检查
+            var len = window.order.foodList.length;
+            for (var i = 0; i < len; i++) {
+                left_amount = parseInt(
+                    $(".card-body[foodid={0}]".format(
+                            window.order.foodList[i].id
+                        )
+                    ).find(".FoodAmount").html()
+                );
+                console.log(left_amount)
+                console.log(window.order.foodList[i].amount)
+                if (left_amount < window.order.foodList[i].amount) {
+                    bs4pop.notice("余量不足！", { type: "danger" });
+                    return;
+                }
+            }
+
             bs4pop.confirm(
                 "请确认桌号为 {0} !".format(window.table),
                 function(sure) {
@@ -129,14 +146,12 @@ $(document).on("click", ".nav-link", function() {
                             "/order/q{0}".format(order_id)
                         );
                     });
-                }
-                ,{
-                    title:"确认订单"
+                },
+                {
+                    title: "确认订单"
                 }
             );
         });
-
-        
 });
 
 $(document).on("click", ".FoodItem", function() {

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Food, Foodtype, Order, OrderItem, Staff, Staff_Table
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.db import connection
 from . import forms
 import json
@@ -76,6 +77,8 @@ def QueryOrder(request, order_id):
     with connection.cursor() as cursor:
         SELECT_COL = 'OrderSystem_food.ID ID, OrderSystem_food.title title, OrderSystem_orderitem.amount amount'
         SELECT_COL += ', OrderSystem_orderitem.sum_price '
+        SELECT_COL += ', OrderSystem_orderitem.start_cook_time '
+        SELECT_COL += ', OrderSystem_orderitem.end_cook_time '
         SELECT_FROM = 'OrderSystem_food, OrderSystem_orderitem '
         SELECT_WHERE = 'OrderSystem_food.ID=OrderSystem_orderitem.foodID_id '
         SELECT_WHERE += ' and OrderSystem_orderitem.orderID_id={0}'.format(
@@ -140,6 +143,7 @@ def CheckOut(request):
         }))
 
 
+@login_required
 def manage(request):
     staffList = Staff.objects.all()
     # (餐桌号 + 餐桌名字 + 负责人ID + 负责人姓名)
@@ -165,6 +169,7 @@ def manage(request):
     return render(request, 'manage.html', {
         'tableInfoList': tableInfoList,
         'staffList': staffList,
+        'user':request.user,
     })
 
 
@@ -265,6 +270,7 @@ def delive_food(request):
 
 
 # 后厨
+@login_required
 def food_supplier(request):
     return render(request, 'FoodSupplier.html')
 

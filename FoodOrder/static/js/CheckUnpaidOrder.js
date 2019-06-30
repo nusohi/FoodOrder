@@ -1,6 +1,12 @@
 $(document).ready(function() {
     window.order_id_list = [];
     UpdatePrice();
+
+    // 检查是否有订单
+    if($(".list-group").children().length==0){
+        $(".list-group").append("<h3>暂无新订单</h3>")
+    }
+    
 });
 
 $(".order-check-box")

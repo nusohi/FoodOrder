@@ -52,9 +52,9 @@
                 </table>
 
                 <hr>
-                <form class='form-group load-form row' action='/manage/tables' method='POST'>
+                <form class='form-group load-form row' target="_blank" action='/manage/tables' method='POST'>
                     {{form}}
-                    <input class="btn btn-primary mt-3" type='submit' value='添加餐桌' />
+                    <input class="btn btn-primary mt-3 reload" type='submit' value='添加餐桌' />
                 </form>
             </div>
             <div class="col-2"></div>
@@ -95,6 +95,9 @@
                 }
                 location.reload()
             })
+        })
+        $(".reload").off("click").click(function(){
+            location.reload()            
         })
     </script>
 

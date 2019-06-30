@@ -40,6 +40,8 @@
                 <div class="">名称：{{food.title}}</div> 
                 <div class="">数量：{{food.amount}}</div>
                 <div class="">总价：{{food.sum_price}}</div>
+                <div class="">接单时间：{{food.start_cook_time|date:'H:i:s'}}</div>
+                <div class="">完成时间：{{food.end_cook_time|date:'H:i:s'}}</div>
             </div>
 
             {% endfor %}

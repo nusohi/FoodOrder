@@ -34,12 +34,12 @@ function UpdateTableStatus() {
             var table = $("#table-info-table tr[table_id=" + table_id + "]");
             if (!table.hasClass("serving")) {
                 table.addClass("serving");
-                table.find("td:last").html("服务中");
+                table.find("td:last").html("");
             }
         });
 
         // 提示信息
-        bs4pop.notice("已刷新餐桌负责状态表！",{position: 'bottomright'});
+        bs4pop.notice("已刷新餐桌负责状态表！", { position: "bottomright" });
     });
 }
 
@@ -85,7 +85,7 @@ function UpdateOrderItemInfo() {
 
         UpdateFoodServeStatus();
         // 提示信息
-        bs4pop.notice("已刷新上菜信息！",{position: 'bottomright'});
+        bs4pop.notice("已刷新上菜信息！", { position: "bottomright" });
     });
 }
 
@@ -93,6 +93,7 @@ function UpdateOrderItemInfo() {
 function UpdateFoodServeStatus() {
     $(".table-detail").each(function() {
         var table_id = $(this).attr("table_id");
+        var waiting = false;
         $(this)
             .find(".food-item")
             .each(function() {
@@ -100,20 +101,24 @@ function UpdateFoodServeStatus() {
                 // 等待上菜
                 if (status == 2) {
                     $(this).addClass("waiting");
-                    $("#table-" + table_id).addClass("waiting");
-                    $("#table-" + table_id + " td:last").html("等待上菜");
+                    waiting = true;
                     $(this)
                         .find("button")
                         .removeClass("disabled");
                 } else {
                     $(this).removeClass("waiting");
-                    $("#table-" + table_id).removeClass("waiting");
-                    $("#table-" + table_id + " td:last").html("服务中");
                     $(this)
                         .find("button")
                         .addClass("disabled");
                 }
             });
+        if (waiting) {
+            $("#table-" + table_id).addClass("waiting");
+            $("#table-" + table_id + " td:last").html("等待上菜");
+        } else {
+            $("#table-" + table_id).removeClass("waiting");
+            $("#table-" + table_id + " td:last").html("");
+        }
     });
     bind_delive_food_btn();
 }
@@ -183,9 +188,6 @@ var bind_delive_food_btn = function() {
             );
         });
 };
-
-
-
 
 function get_food_status_text(status) {
     var status_text = ["等待后厨接单", "后厨已接单", "等待上菜", "上菜完成"];
